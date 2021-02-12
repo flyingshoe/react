@@ -1,0 +1,1 @@
+(this["webpackJsonpmy-app"]=this["webpackJsonpmy-app"]||[]).push([[10],{447:function(e,t,a){"use strict";a.r(t);var n=a(0),s=a.n(n);t.default=function(){return Object(n.useEffect)((function(){}),[]),s.a.createElement(s.a.Fragment,null,s.a.createElement("h1",{className:"title"},"Star Wars Universe"))}}}]);
