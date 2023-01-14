@@ -1,19 +1,20 @@
+import { Button } from "@mui/material";
 import { createRoot } from "react-dom/client";
-import { Provider } from "react-redux";
-import { PersistGate } from "redux-persist/integration/react";
-import { persistor, store } from "./redux/store";
-import Router from "./router";
+import { BrowserRouter as Router, Link, Route } from "react-router-dom";
+import MyComp from "./comp";
+import MyComp2 from "./comp2";
 
 const container = document.getElementById("root");
 const root = createRoot(container);
 
 root.render(
-  <Provider store={store}>
-    <PersistGate
-      loading={<div>Loading local storage...</div>}
-      persistor={persistor}
-    >
-      <Router />
-    </PersistGate>
-  </Provider>
+  <Router>
+    <Route path="/" exact>
+      <MyComp />
+    </Route>
+
+    <Route path="/asd">
+      <MyComp2 />
+    </Route>
+  </Router>
 );
