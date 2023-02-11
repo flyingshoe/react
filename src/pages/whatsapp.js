@@ -1,8 +1,10 @@
 import { useState } from "react";
 import { Container, TextField } from "@mui/material";
 import { Button } from "react-bootstrap";
+import { isMobile } from "../utils";
 
-const rootUrl = "https://web.whatsapp.com/send";
+const desktopUrl = "https://web.whatsapp.com/send";
+const mobileUrl = "whatsapp://send";
 
 export default function WhatsApp() {
   const [phoneNum, setPhoneNum] = useState("");
@@ -10,9 +12,9 @@ export default function WhatsApp() {
 
   // Opens Whatsapp Web and sends the message to the phone number (no need to add to contact)
   const sendMsg = () => {
-    const fullUrl = `${rootUrl}?phone=${phoneNum}&text=${encodeURIComponent(
-      msg
-    )}`;
+    const fullUrl = `${
+      isMobile() ? mobileUrl : desktopUrl
+    }?phone=${phoneNum}&text=${encodeURIComponent(msg)}`;
     window.open(fullUrl);
   };
 
