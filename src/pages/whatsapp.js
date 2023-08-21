@@ -33,6 +33,7 @@ export default function WhatsApp() {
         label="Phone Number"
         value={phoneNum}
         onChange={(e) => setPhoneNum(e.target.value)}
+        inputProps={{ type: "number" }}
       />
       <TextField
         label="Message"
