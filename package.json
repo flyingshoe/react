@@ -5,6 +5,7 @@
   "dependencies": {
     "@emotion/react": "^11.9.0",
     "@emotion/styled": "^11.8.1",
+    "@mui/icons-material": "^5.14.16",
     "@mui/material": "^5.6.2",
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.5.0",
@@ -31,6 +32,9 @@
     "workbox-strategies": "^6.5.4",
     "workbox-streams": "^6.5.4"
   },
+  "devDependencies": {
+    "dotenv": "^8.2.0"
+  },
   "scripts": {
     "analyze": "source-map-explorer 'build/static/js/*.js'",
     "analyzecss": "source-map-explorer 'build/static/css/*.css'",
@@ -56,10 +60,7 @@
     ]
   },
   "homepage": ".",
-  "devDependencies": {
-    "dotenv": "^8.2.0"
-  },
   "volta": {
-    "node": "16.18.1"
+    "node": "16.20.2"
   }
 }

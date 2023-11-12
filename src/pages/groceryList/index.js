@@ -4,6 +4,7 @@ import {
   Container,
   FormControlLabel,
   FormGroup,
+  IconButton,
   Stack,
   TextField,
   Typography,
@@ -15,6 +16,36 @@ const groceryList = [
   { id: "2", title: "tomato", done: true },
   { id: "3", title: "Pork", done: false },
 ];
+
+const storedList = [
+  'Steak',
+'Abalone',
+'Beef brisket $25.13',
+'Beef tendon',
+'White carrot radish',
+'Red wine',
+'Sweet potato good for eyes',
+'Black beans canned',
+'Broccoli (cholesterol, cancer)',
+'Egg plant',
+'Beets',
+'Dragon fruit',
+'Salmon wild caught fish',
+'Avocado',
+'Corn',
+'Saba',
+'Banana', 
+'Ginger',
+'Cauliflower',
+
+'Buy fish fm seatobag?',
+
+'ABC sundry shop',
+'Jif 1.95 each',
+'Chocolate ',
+'Turpentine',
+'Blade for calluses',
+]
 
 export default function GroceryList() {
   const [list, setList] = useState(groceryList);
@@ -82,4 +113,10 @@ export default function GroceryList() {
       </Stack>
     </Container>
   );
+}
+
+const Fab = ()=>{
+  <IconButton aria-label="delete">
+  <DeleteIco/>
+</IconButton>
 }
