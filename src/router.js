@@ -11,6 +11,7 @@ const Curl = lazy(() => import("./pages/curl"));
 const WordHack = lazy(() => import("./pages/wordHack"));
 const ImageUrl = lazy(() => import("./pages/imageUrl"));
 const WhatsApp = lazy(() => import("./pages/whatsapp"));
+const GroceryList = lazy(() => import("./pages/groceryList"));
 
 export default function Routes() {
   const [homePg, setHomePg] = useState(false);
@@ -30,6 +31,7 @@ export default function Routes() {
           <Route path="/WordHack" component={WordHack} />
           <Route path="/ImageUrl" component={ImageUrl} />
           <Route path="/Whatsapp" component={WhatsApp} />
+          <Route path="/GroceryList" component={GroceryList} />
         </Switch>
       </Suspense>
     </Router>
