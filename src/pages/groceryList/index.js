@@ -1,122 +1,150 @@
 import {
-  Button,
   Checkbox,
   Container,
   FormControlLabel,
   FormGroup,
-  IconButton,
   Stack,
-  TextField,
   Typography,
 } from "@mui/material";
 import { useEffect, useState } from "react";
+import GroceryDialog from "./dialog";
+import { groceryList } from "./constant";
+import { blue, green, orange, purple } from "@mui/material/colors";
 
-const groceryList = [
-  { id: "1", title: "veg", done: false },
-  { id: "2", title: "tomato", done: true },
-  { id: "3", title: "Pork", done: false },
-];
-
-const storedList = [
-  'Steak',
-'Abalone',
-'Beef brisket $25.13',
-'Beef tendon',
-'White carrot radish',
-'Red wine',
-'Sweet potato good for eyes',
-'Black beans canned',
-'Broccoli (cholesterol, cancer)',
-'Egg plant',
-'Beets',
-'Dragon fruit',
-'Salmon wild caught fish',
-'Avocado',
-'Corn',
-'Saba',
-'Banana', 
-'Ginger',
-'Cauliflower',
-
-'Buy fish fm seatobag?',
-
-'ABC sundry shop',
-'Jif 1.95 each',
-'Chocolate ',
-'Turpentine',
-'Blade for calluses',
-]
+const lsKey = "groceryList";
 
 export default function GroceryList() {
-  const [list, setList] = useState(groceryList);
-  const handleCheck = (e, val) => {
-    const idx = list.findIndex(({ id }) => id === e.target.name);
-    let tempList = [...list];
+  const [savedList, setSavedList] = useState(() => {
+    if (lsKey in localStorage) {
+      return JSON.parse(localStorage[lsKey]);
+    }
+    return groceryList;
+  });
+
+  useEffect(() => {
+    localStorage.setItem(lsKey, JSON.stringify(savedList));
+  }, [savedList]);
+
+  const handleDoneCheck = (e, val) => {
+    const idx = savedList.findIndex(({ id }) => id === e.target.name);
+    let tempList = [...savedList];
 
     // Set the checked value
     tempList[idx].done = val;
 
     // Reorder it, but first make a copy and remove it
-    const tempItem = { ...tempList[idx] };
-    tempList = tempList.filter(({ id }) => id !== tempItem.id);
+    // const tempItem = { ...tempList[idx] };
+    // tempList = tempList.filter(({ id }) => id !== tempItem.id);
 
-    // if checked, move it to the bottom of the list
-    if (val === true) {
-      tempList = [...tempList, tempItem];
-    }
+    // // if checked, move it to the bottom of the list
+    // if (val === true) {
+    //   tempList = [...tempList, tempItem];
+    // }
 
-    // If unchecked move it to the top of the list
-    else {
-      tempList = [tempItem, ...tempList];
-    }
+    // // If unchecked move it to the top of the list
+    // else {
+    //   tempList = [tempItem, ...tempList];
+    // }
 
     // Save it
-    setList(tempList);
+    setSavedList(tempList);
+  };
+
+  const handleAddedCheck = (id) => {
+    const idx = savedList.findIndex((i) => i.id === id);
+    let tempList = [...savedList];
+
+    // Invert the checked value
+    tempList[idx].added = !tempList[idx].added;
+
+    // Save it
+    setSavedList(tempList);
+  };
+
+  const handleDelete = (id) => {
+    const idx = savedList.findIndex((i) => i.id === id);
+    let tempList = [...savedList];
+    tempList.splice(idx, 1);
+
+    // Save it
+    setSavedList(tempList);
+  };
+
+  const handleAdd = (title) => {
+    // Prepend to start
+    setSavedList([
+      { id: Date.now().toString(), title, done: false, added: false },
+      ...savedList,
+    ]);
   };
 
   const ItemLine = ({ item: { id, title, done } }) => {
     return (
-      <>
-        <FormControlLabel
-          control={
-            <Checkbox
-              name={id}
-              size="large"
-              checked={done}
-              onChange={handleCheck}
-            />
-          }
-          label={
-            <Typography
-              variant="h5"
-              sx={done && { textDecoration: "line-through" }}
-            >
-              {title}
-            </Typography>
-          }
-        />
-      </>
+      <FormControlLabel
+        control={
+          <Checkbox
+            name={id}
+            size="large"
+            checked={done}
+            onChange={handleDoneCheck}
+          />
+        }
+        label={
+          <Typography
+            variant="h5"
+            sx={done ? { textDecoration: "line-through" } : {}}
+          >
+            {title}
+          </Typography>
+        }
+      />
     );
   };
 
   return (
     <Container maxWidth="md" sx={{ pt: 5 }}>
-      <Typography variant="h3">Grocery List</Typography>
-      {/* <TextField label="New Item" variant="outlined" />
-      <Button variant="contained">Add</Button> */}
-      <Stack direction="column" spacing={2}>
-        <FormGroup>
-          {list.map((item) => (
-            <ItemLine item={item} />
-          ))}
-        </FormGroup>
-      </Stack>
+      {savedList.filter(({ added, done }) => added === true && done !== true)
+        .length > 0 && (
+        <>
+          <Typography variant="h3" sx={{ mb: 3, color: purple[700] }}>
+            Grocery List
+          </Typography>
+          <Stack direction="column" spacing={2}>
+            <FormGroup>
+              {savedList
+                .filter(({ added, done }) => added === true && done !== true)
+                .map((item) => (
+                  <ItemLine item={item} key={item.id} />
+                ))}
+            </FormGroup>
+          </Stack>
+        </>
+      )}
+
+      {savedList.filter(({ added, done }) => added === true && done === true)
+        .length > 0 && (
+        <>
+          <Typography variant="h3" sx={{ my: 3, color: green[600] }}>
+            Done
+          </Typography>
+          <Stack direction="column" spacing={2}>
+            <FormGroup>
+              {savedList
+                .filter(({ added, done }) => added === true && done === true)
+                .map((item) => (
+                  <ItemLine item={item} key={item.id} />
+                ))}
+            </FormGroup>
+          </Stack>
+        </>
+      )}
+
+      <GroceryDialog
+        savedList={savedList}
+        handleDelete={handleDelete}
+        handleAdd={handleAdd}
+        handleCheck={handleAddedCheck}
+      />
     </Container>
   );
-}
-
-const Fab = ()=>{
-  <IconButton aria-label="delete">
-  <DeleteIco/>
-</IconButton>
 }
