@@ -109,7 +109,7 @@ export default function GroceryList() {
           <Typography variant="h3" sx={{ mb: 3, color: purple[700] }}>
             Grocery List
           </Typography>
-          <Stack direction="column" spacing={2}>
+          <Stack direction="column" spacing={2} sx={{ mb: 4 }}>
             <FormGroup>
               {savedList
                 .filter(({ added, done }) => added === true && done !== true)
@@ -124,8 +124,12 @@ export default function GroceryList() {
       {savedList.filter(({ added, done }) => added === true && done === true)
         .length > 0 && (
         <>
-          <Typography variant="h3" sx={{ my: 3, color: green[600] }}>
-            Done
+          <Typography variant="h3" sx={{ mb: 3, color: green[600] }}>
+            {savedList.filter(
+              ({ added, done }) => added === true && done !== true
+            ).length > 0
+              ? "Done"
+              : "Time to Checkout!"}
           </Typography>
           <Stack direction="column" spacing={2}>
             <FormGroup>
