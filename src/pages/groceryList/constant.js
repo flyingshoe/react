@@ -113,40 +113,6 @@ export const groceryList = [
     done: false,
     added: false,
   },
-  {
-    id: "19",
-    title: "Buy fish fm seatobag?",
-    done: false,
-    added: false,
-  },
-  {
-    id: "20",
-    title: "ABC sundry shop",
-    done: false,
-    added: false,
-  },
-  {
-    id: "21",
-    title: "Jif 1.95 each",
-    done: false,
-    added: false,
-  },
-  {
-    id: "22",
-    title: "Chocolate ",
-    done: false,
-    added: false,
-  },
-  {
-    id: "23",
-    title: "Turpentine",
-    done: false,
-    added: false,
-  },
-  {
-    id: "24",
-    title: "Blade for calluses",
-    done: false,
-    added: false,
-  },
+
+
 ];
