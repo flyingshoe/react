@@ -10,6 +10,7 @@ import { useEffect, useState } from "react";
 import GroceryDialog from "./dialog";
 import { groceryList } from "./constant";
 import { blue, green, orange, purple } from "@mui/material/colors";
+import GroceryDrawer from "./drawer";
 
 const lsKey = "groceryList";
 
@@ -143,7 +144,7 @@ export default function GroceryList() {
         </>
       )}
 
-      <GroceryDialog
+      <GroceryDrawer
         savedList={savedList}
         handleDelete={handleDelete}
         handleAdd={handleAdd}
