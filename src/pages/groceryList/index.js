@@ -7,9 +7,8 @@ import {
   Typography,
 } from "@mui/material";
 import { useEffect, useState } from "react";
-import GroceryDialog from "./dialog";
 import { groceryList } from "./constant";
-import { blue, green, orange, purple } from "@mui/material/colors";
+import { green, purple } from "@mui/material/colors";
 import GroceryDrawer from "./drawer";
 
 const lsKey = "groceryList";
@@ -106,43 +105,43 @@ export default function GroceryList() {
     <Container maxWidth="md" sx={{ pt: 5 }}>
       {savedList.filter(({ added, done }) => added === true && done !== true)
         .length > 0 && (
-        <>
-          <Typography variant="h3" sx={{ mb: 3, color: purple[700] }}>
-            Grocery List
-          </Typography>
-          <Stack direction="column" spacing={2} sx={{ mb: 4 }}>
-            <FormGroup>
-              {savedList
-                .filter(({ added, done }) => added === true && done !== true)
-                .map((item) => (
-                  <ItemLine item={item} key={item.id} />
-                ))}
-            </FormGroup>
-          </Stack>
-        </>
-      )}
+          <>
+            <Typography variant="h3" sx={{ mb: 3, color: purple[700] }}>
+              Grocery List
+            </Typography>
+            <Stack direction="column" spacing={2} sx={{ mb: 4 }}>
+              <FormGroup>
+                {savedList
+                  .filter(({ added, done }) => added === true && done !== true)
+                  .map((item) => (
+                    <ItemLine item={item} key={item.id} />
+                  ))}
+              </FormGroup>
+            </Stack>
+          </>
+        )}
 
       {savedList.filter(({ added, done }) => added === true && done === true)
         .length > 0 && (
-        <>
-          <Typography variant="h3" sx={{ mb: 3, color: green[600] }}>
-            {savedList.filter(
-              ({ added, done }) => added === true && done !== true
-            ).length > 0
-              ? "Done"
-              : "Time to Checkout!"}
-          </Typography>
-          <Stack direction="column" spacing={2}>
-            <FormGroup>
-              {savedList
-                .filter(({ added, done }) => added === true && done === true)
-                .map((item) => (
-                  <ItemLine item={item} key={item.id} />
-                ))}
-            </FormGroup>
-          </Stack>
-        </>
-      )}
+          <>
+            <Typography variant="h3" sx={{ mb: 3, color: green[600] }}>
+              {savedList.filter(
+                ({ added, done }) => added === true && done !== true
+              ).length > 0
+                ? "Done"
+                : "Time to Checkout!"}
+            </Typography>
+            <Stack direction="column" spacing={2}>
+              <FormGroup>
+                {savedList
+                  .filter(({ added, done }) => added === true && done === true)
+                  .map((item) => (
+                    <ItemLine item={item} key={item.id} />
+                  ))}
+              </FormGroup>
+            </Stack>
+          </>
+        )}
 
       <GroceryDrawer
         savedList={savedList}
