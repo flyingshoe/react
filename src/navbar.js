@@ -36,10 +36,10 @@ const routeList = [
     title: "Color Picker",
     url: "/ColorApp",
   },
-  {
-    title: "SG Covid Tracker",
-    url: "/Covid",
-  },
+  // {
+  //   title: "SG Covid Tracker",
+  //   url: "/Covid",
+  // },
 ];
 
 export default function NavBS({ homePg, setHomePg }) {
