@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { Container, Navbar, Nav, NavDropdown } from "react-bootstrap";
 import { NavLink } from "react-router-dom";
+import { Button, FormControlLabel, Switch } from "@mui/material";
 
 const { Link } = Nav;
 const { Toggle, Collapse } = Navbar;
@@ -42,7 +43,7 @@ const routeList = [
   },
 ];
 
-export default function NavBS({ homePg, setHomePg }) {
+export default function NavBS({ homePg, setDarkMode }) {
   const [trans, setTrans] = useState("");
 
   return (
@@ -81,9 +82,12 @@ export default function NavBS({ homePg, setHomePg }) {
                 Gatsby
               </NavItem>
             </NavDropdown>
+            <Button onClick={() => setDarkMode(mode => !mode)}>Toggle Dark Mode</Button>
           </Nav>
         </Collapse>
       </Container>
+
+      {/* <FormControlLabel control={<Switch defaultChecked />} label="Dark Mode" /> */}
     </Navbar>
   );
 }

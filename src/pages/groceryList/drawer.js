@@ -67,7 +67,7 @@ export default function GroceryDrawer({
               pt: 3,
               position: "sticky",
               top: 0,
-              backgroundColor: "white",
+              // backgroundColor: "white",
               zIndex: 1,
             }}
           >
