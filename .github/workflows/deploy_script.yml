@@ -13,19 +13,14 @@ jobs:
     steps:
       - name: Check out repository code
         uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
+      - name: Setting Node version
+        uses: actions/setup-node@v4
         with:
-          # Version Spec of the version to use in SemVer notation.
-          # It also emits such aliases as lts, latest, nightly and canary builds
-          # Examples: 12.x, 10.15.1, >=10.15.0, lts/Hydrogen, 16-nightly, latest, node
           node-version: '16.20.2'
-      - run: node -v
-      - run: npm i --legacy-peer-deps
-      - run: ls ${{ github.workspace }}
-      - run: npm run build
-      - name: List files in the repository
-        run: ls ${{ github.workspace }}
-      - run: echo "🍏 This job's status is ${{ job.status }}."
+      - name: Installing dependencies
+        run: npm i --legacy-peer-deps
+      - name: Building files
+        run: npm run build
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v2
         with:
@@ -33,9 +28,6 @@ jobs:
 
   # Deployment job
   deploy:
-    # environment:
-    #   name: github-pages
-    #   url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
     needs: build
     steps:
