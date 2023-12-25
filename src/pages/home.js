@@ -13,7 +13,7 @@ export default function Home({ setHomePg }) {
   return (
     <div
       style={{
-        height: "100vh",
+        height: "100dvh",
         background: `url(${bg}) center/cover no-repeat`,
       }}
     >
