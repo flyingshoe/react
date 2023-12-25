@@ -84,6 +84,16 @@ export default function NavBS({ homePg, setHomePg }) {
           </Nav>
         </Collapse>
       </Container>
+
+      <style>
+        {
+          `
+          .nav-link{
+            color:rgba(255,255,255,.55) !important;
+          }
+          `
+        }
+      </style>
     </Navbar>
   );
 }
