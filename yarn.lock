@@ -1897,7 +1897,9 @@
   "version" "21.0.1"
 
 "@types/yargs@^13.0.0":
-  "version" "16.0.4"
+  "integrity" "sha512-qCxJE1qgz2y0hA4pIxjBR+PelCH0U5CK1XJXFwCNqfmliatKp47UCXXE9Dyk1OXBDLvsCF57TqQEJaeLfDYEOQ=="
+  "resolved" "https://registry.npmjs.org/@types/yargs/-/yargs-13.0.12.tgz"
+  "version" "13.0.12"
   dependencies:
     "@types/yargs-parser" "*"
 
@@ -2189,6 +2191,8 @@
   "version" "4.1.1"
 
 "ansi-regex@^5.0.0", "ansi-regex@^5.0.1":
+  "integrity" "sha512-quJQXlTSUGL2LH9SUXo8VwsY4soanhgo6LNSm84E1LBcE8s3O0wpdiRzyR9z/ZZJMlMWv37qOOb9pdJlMUEKFQ=="
+  "resolved" "https://registry.npmjs.org/ansi-regex/-/ansi-regex-5.0.1.tgz"
   "version" "5.0.1"
 
 "ansi-regex@^5.0.1":
