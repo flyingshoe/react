@@ -63,5 +63,8 @@
   "homepage": ".",
   "volta": {
     "node": "16.20.2"
+  },
+  "overrides": {
+    "autoprefixer": "10.4.5"
   }
 }
