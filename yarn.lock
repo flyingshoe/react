@@ -2358,12 +2358,14 @@
 "atob@^2.1.2":
   "version" "2.1.2"
 
-"autoprefixer@^10.4.13":
-  "version" "10.4.16"
+"autoprefixer@10.4.5":
+  "integrity" "sha512-Fvd8yCoA7lNX/OUllvS+aS1I7WRBclGXsepbvT8ZaPgrH24rgXpZzF0/6Hh3ZEkwg+0AES/Osd196VZmYoEFtw=="
+  "resolved" "https://registry.npmjs.org/autoprefixer/-/autoprefixer-10.4.5.tgz"
+  "version" "10.4.5"
   dependencies:
-    "browserslist" "^4.21.10"
-    "caniuse-lite" "^1.0.30001538"
-    "fraction.js" "^4.3.6"
+    "browserslist" "^4.20.2"
+    "caniuse-lite" "^1.0.30001332"
+    "fraction.js" "^4.2.0"
     "normalize-range" "^0.1.2"
     "picocolors" "^1.0.0"
     "postcss-value-parser" "^4.2.0"
@@ -2565,7 +2567,7 @@
 "browser-process-hrtime@^1.0.0":
   "version" "1.0.0"
 
-"browserslist@^4.0.0", "browserslist@^4.14.5", "browserslist@^4.18.1", "browserslist@^4.21.10", "browserslist@^4.21.4", "browserslist@^4.21.9":
+"browserslist@^4.0.0", "browserslist@^4.14.5", "browserslist@^4.18.1", "browserslist@^4.20.2", "browserslist@^4.21.10", "browserslist@^4.21.4", "browserslist@^4.21.9":
   "version" "4.21.11"
   dependencies:
     "caniuse-lite" "^1.0.30001538"
@@ -2625,7 +2627,7 @@
     "lodash.memoize" "^4.1.2"
     "lodash.uniq" "^4.5.0"
 
-"caniuse-lite@^1.0.0", "caniuse-lite@^1.0.30001538":
+"caniuse-lite@^1.0.0", "caniuse-lite@^1.0.30001332", "caniuse-lite@^1.0.30001538":
   "integrity" "sha512-tYq/6MoXhdezDLFZuCO/TKboTzuQ/xR5cFdgXPfDtM7/kchBO3b4VWghE/OAi/DV7tTdhmLjZiZBZi1fA/GheQ=="
   "resolved" "https://registry.npmjs.org/caniuse-lite/-/caniuse-lite-1.0.30001571.tgz"
   "version" "1.0.30001571"
@@ -3779,7 +3781,7 @@
 "fast-deep-equal@^3.1.1", "fast-deep-equal@^3.1.3":
   "version" "3.1.3"
 
-"fast-glob@^3.2.12", "fast-glob@^3.2.9":
+"fast-glob@^3.2.9", "fast-glob@^3.3.0":
   "version" "3.3.1"
   dependencies:
     "@nodelib/fs.stat" "^2.0.2"
@@ -3922,7 +3924,7 @@
 "forwarded@0.2.0":
   "version" "0.2.0"
 
-"fraction.js@^4.3.6":
+"fraction.js@^4.2.0":
   "version" "4.3.6"
 
 "fresh@0.5.2":
@@ -4988,7 +4990,7 @@
     "import-local" "^3.0.2"
     "jest-cli" "^27.5.1"
 
-"jiti@^1.18.2":
+"jiti@^1.19.1":
   "version" "1.20.0"
 
 "js-tokens@^3.0.0 || ^4.0.0", "js-tokens@^4.0.0":
@@ -7163,18 +7165,20 @@
 "symbol-tree@^3.2.4":
   "version" "3.2.4"
 
-"tailwindcss@^3.0.2":
-  "version" "3.3.3"
+"tailwindcss@^3.0.2", "tailwindcss@^3.4.0":
+  "integrity" "sha512-VigzymniH77knD1dryXbyxR+ePHihHociZbXnLZHUyzf2MMs2ZVqlUrZ3FvpXP8pno9JzmILt1sZPD19M3IxtA=="
+  "resolved" "https://registry.npmjs.org/tailwindcss/-/tailwindcss-3.4.0.tgz"
+  "version" "3.4.0"
   dependencies:
     "@alloc/quick-lru" "^5.2.0"
     "arg" "^5.0.2"
     "chokidar" "^3.5.3"
     "didyoumean" "^1.2.2"
     "dlv" "^1.1.3"
-    "fast-glob" "^3.2.12"
+    "fast-glob" "^3.3.0"
     "glob-parent" "^6.0.2"
     "is-glob" "^4.0.3"
-    "jiti" "^1.18.2"
+    "jiti" "^1.19.1"
     "lilconfig" "^2.1.0"
     "micromatch" "^4.0.5"
     "normalize-path" "^3.0.0"

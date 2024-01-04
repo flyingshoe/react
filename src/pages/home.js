@@ -18,7 +18,7 @@ export default function Home({ setHomePg }) {
       }}
     >
       <div style={{ height: "100%", background: "rgba(0,0,0,0.5)" }}>
-        <div style={{ paddingTop: "7rem" }}>
+        <div className="tw-pt-32">
           <h1 id="title">React Web App</h1>
         </div>
       </div>
