@@ -1,6 +1,5 @@
 import { useState } from "react";
-import { Container, TextField } from "@mui/material";
-import { Button } from "react-bootstrap";
+import { Button, Container, TextField } from "@mui/material";
 import { isMobile } from "../utils";
 
 const desktopUrl = "https://web.whatsapp.com/send";
@@ -12,9 +11,8 @@ export default function WhatsApp() {
 
   // Opens Whatsapp Web and sends the message to the phone number (no need to add to contact)
   const sendMsg = () => {
-    const fullUrl = `${
-      isMobile() ? mobileUrl : desktopUrl
-    }?phone=${phoneNum}&text=${encodeURIComponent(msg)}`;
+    const fullUrl = `${isMobile() ? mobileUrl : desktopUrl
+      }?phone=${phoneNum}&text=${encodeURIComponent(msg)}`;
     window.open(fullUrl);
   };
 
@@ -42,7 +40,7 @@ export default function WhatsApp() {
         value={msg}
         onChange={(e) => setMsg(e.target.value)}
       />
-      <Button onClick={sendMsg}>Send</Button>
+      <Button variant='contained' onClick={sendMsg}>Send</Button>
     </Container>
   );
 }

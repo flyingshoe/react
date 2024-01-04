@@ -40,6 +40,10 @@ const routeList = [
   //   title: "SG Covid Tracker",
   //   url: "/Covid",
   // },
+  {
+    title: "NRIC",
+    url: "/NRIC",
+  },
 ];
 
 export default function NavBS({ homePg, setHomePg }) {
