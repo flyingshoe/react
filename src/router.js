@@ -6,7 +6,7 @@ import LinearProgress from "@mui/material/LinearProgress";
 const Home = lazy(() => import("pages/home"));
 const ColorApp = lazy(() => import("pages/colorPicker"));
 const TodoApp = lazy(() => import("pages/todo"));
-const Covid = lazy(() => import("pages/covid"));
+// const Covid = lazy(() => import("pages/covid"));
 const Curl = lazy(() => import("pages/curl"));
 const WordHack = lazy(() => import("pages/wordHack"));
 const ImageUrl = lazy(() => import("pages/imageUrl"));
@@ -39,7 +39,7 @@ export default function Routes() {
               </Route>
               <Route path="/TodoApp" component={TodoApp} />
               <Route path="/ColorApp" component={ColorApp} />
-              <Route path="/Covid" component={Covid} />
+              {/* <Route path="/Covid" component={Covid} /> */}
               <Route path="/Curl" component={Curl} />
               <Route path="/WordHack" component={WordHack} />
               <Route path="/ImageUrl" component={ImageUrl} />

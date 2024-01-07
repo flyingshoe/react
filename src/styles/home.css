@@ -57,10 +57,10 @@ a {
 }
 
 /* Keep color in hyperlink */
-a:visited,
+/* a:visited,
 a:link {
   color: inherit;
-}
+} */
 
 /* phone */
 @media only screen and (max-width: 480px) {

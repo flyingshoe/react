@@ -102,7 +102,7 @@ export default function GroceryList() {
   };
 
   return (
-    <Container maxWidth="md" sx={{ pt: 5 }}>
+    <Container maxWidth="md" sx={{ py: 5 }}>
       {savedList.filter(({ added, done }) => added === true && done !== true)
         .length > 0 && (
           <>
