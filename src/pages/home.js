@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import "../styles/home.css";
 import bg from "../images/bg3.jpg";
+import { Box } from "@mui/material";
 
 export default function Home({ setHomePg }) {
   useEffect(() => {
@@ -13,15 +14,24 @@ export default function Home({ setHomePg }) {
   return (
     <div
       style={{
-        height: "100dvh",
+        height: "100%",
         background: `url(${bg}) center/cover no-repeat`,
       }}
     >
-      <div style={{ height: "100%", background: "rgba(0,0,0,0.5)" }}>
-        <div className="tw-pt-32">
+      <Box
+        sx={{
+          height: { xs: "calc(100% - 56px)", sm: "calc(100% - 64px)" },
+          background: "rgba(0,0,0,0.5)",
+          position: "fixed",
+          bottom: 0,
+          left: 0,
+          right: 0,
+        }}
+      >
+        <div className="tw-mt-32">
           <h1 id="title">React Web App</h1>
         </div>
-      </div>
+      </Box>
     </div>
   );
 }

@@ -22,10 +22,10 @@ import { useLocation, Link } from "react-router-dom";
 
 const drawerWidth = 240;
 const navItems = [
-  {
-    title: "Home",
-    url: "/",
-  },
+  // {
+  //   title: "Home",
+  //   url: "/",
+  // },
   {
     title: "Grocery List",
     url: "/GroceryList",
@@ -60,7 +60,6 @@ const navItems = [
   },
 ];
 
-
 export default function Navbar() {
   const [mobileOpen, setMobileOpen] = useState(false);
 
@@ -75,7 +74,11 @@ export default function Navbar() {
 
   return (
     <AppBar
-      position={(router.pathname === "/" || router.pathname === '/ColorApp') ? "fixed" : "sticky"}
+      position={
+        router.pathname === "/" || router.pathname === "/ColorApp"
+          ? "fixed"
+          : "sticky"
+      }
       style={{
         backgroundColor: "rgba(255,255,255,0.85)",
         backdropFilter: "blur(5px) saturate(2)",
@@ -91,7 +94,7 @@ export default function Navbar() {
               aria-controls="menu-appbar"
               aria-haspopup="true"
               onClick={toggleDrawer}
-            // sx={{ color: "common.white" }}
+              // sx={{ color: "common.white" }}
             >
               <MenuIcon />
             </IconButton>
@@ -142,9 +145,7 @@ export default function Navbar() {
                           : "m-nav-item"
                       }
                     >
-                      <ListItemButton
-                        sx={{ textAlign: "center", color: "#555" }}
-                      >
+                      <ListItemButton sx={{ textAlign: "center" }}>
                         <ListItemText primary={item.title} to={item.url} />
                       </ListItemButton>
                     </ListItem>
@@ -153,52 +154,65 @@ export default function Navbar() {
               </Box>
             </Drawer>
           </Box>
-          <Typography
-            variant="h5"
-            noWrap
-            component="a"
-            to="/"
+
+          <Box
             sx={{
-              mr: 2,
-              display: { xs: "flex", sm: "none" },
-              flexGrow: 1,
-              fontFamily: "monospace",
-              fontWeight: 700,
-              letterSpacing: ".3rem",
-              color: "#555",
-              textDecoration: "none",
+              background: "linear-gradient( 120deg, #bd34fe, #47caff )",
+              backgroundClip: "text",
+              flexGrow: { xs: 1, sm: 0 },
             }}
           >
-            react
-          </Typography>
+            <Typography
+              variant="h5"
+              noWrap
+              component="a"
+              to="/"
+              sx={{
+                mr: 2,
+                display: { xs: "flex", sm: "none" },
+                flexGrow: 1,
+                fontFamily: "monospace",
+                fontWeight: 700,
+                letterSpacing: ".3rem",
+                color: "transparent",
+                textDecoration: "none",
+              }}
+            >
+              react
+            </Typography>
 
-          {/* For Desktop */}
-          <Typography
-            variant="h6"
-            noWrap
-            component={Link}
-            to="/"
-            sx={{
-              mr: 2,
-              display: { xs: "none", sm: "flex" },
-              fontFamily: "monospace",
-              fontWeight: 700,
-              letterSpacing: ".3rem",
-              color: "#555",
-              textDecoration: "none",
-            }}
-          >
-            react
-          </Typography>
-
+            {/* For Desktop */}
+            <Typography
+              variant="h6"
+              noWrap
+              component={Link}
+              to="/"
+              sx={{
+                mr: 2,
+                display: { xs: "none", sm: "flex" },
+                fontFamily: "monospace",
+                fontWeight: 700,
+                letterSpacing: ".3rem",
+                color: "transparent",
+                textDecoration: "none",
+              }}
+            >
+              react
+            </Typography>
+          </Box>
           {/* Middle Items */}
-          <Box sx={{ flexGrow: 1, display: { xs: "none", sm: "flex" } }}>
+          <Box
+            sx={{
+              flexGrow: 1,
+              display: { xs: "none", sm: "flex", justifyContent: "center" },
+            }}
+          >
             {navItems.map((item) => (
               <Button
                 key={item.title}
                 component={Link}
                 to={item.url}
-                sx={{ my: 2, color: "#555", display: "block" }}
+                sx={{ color: "#555" }}
                 className={
                   router.pathname === item.url ? "nav-item-active" : "nav-item"
                 }
