@@ -139,14 +139,19 @@ export default function Navbar() {
                       component={Link}
                       to={item.url}
                       disablePadding
-                      className={
-                        router.pathname === item.url
-                          ? "m-nav-item-active"
-                          : "m-nav-item"
-                      }
                     >
-                      <ListItemButton sx={{ textAlign: "center" }}>
-                        <ListItemText primary={item.title} to={item.url} />
+                      <ListItemButton>
+                        <ListItemText
+                          disableTypography
+                          primary={item.title}
+                          to={item.url}
+                          sx={{
+                            textAlign: "center",
+                            color:
+                              router.pathname === item.url && "secondary.main",
+                            fontWeight: router.pathname === item.url && 800,
+                          }}
+                        />
                       </ListItemButton>
                     </ListItem>
                   ))}
@@ -212,10 +217,12 @@ export default function Navbar() {
                 key={item.title}
                 component={Link}
                 to={item.url}
-                sx={{ color: "#555" }}
-                className={
-                  router.pathname === item.url ? "nav-item-active" : "nav-item"
-                }
+                sx={{
+                  textAlign: "center",
+                  color:
+                    router.pathname === item.url ? "secondary.main" : "#555",
+                  fontWeight: router.pathname === item.url && 800,
+                }}
               >
                 {item.title}
               </Button>
