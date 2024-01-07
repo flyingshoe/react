@@ -8,7 +8,6 @@ import MenuIcon from "@mui/icons-material/Menu";
 import Container from "@mui/material/Container";
 import Button from "@mui/material/Button";
 import HomeIcon from "@mui/icons-material/Home";
-
 import {
   Divider,
   Drawer,
@@ -123,13 +122,14 @@ export default function Navbar() {
                     justifyContent: "center",
                     gap: 1,
                     py: 2,
-                    color: "#555",
+                    background: "linear-gradient( 120deg, #bd34fe, #47caff )",
+                    color: "white",
                   }}
                   component={Link}
                   to="/"
                   className={router.pathname === "/" ? "m-nav-item-active" : ""}
                 >
-                  <HomeIcon />
+                  <HomeIcon fontSize="large" />
                 </Typography>
                 <Divider />
                 <List>
