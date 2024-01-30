@@ -40,10 +40,9 @@
   "scripts": {
     "analyze": "source-map-explorer 'build/static/js/*.js'",
     "analyzecss": "source-map-explorer 'build/static/css/*.css'",
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
   },
   "eslintConfig": {
     "extends": "react-app"
