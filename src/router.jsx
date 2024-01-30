@@ -20,7 +20,7 @@ const RouterContainer = ({ children }) => {
   useEffect(() => {
     document.title = pathname === "/" ? "React App" : pathname.split('/')[1].replace(/([A-Z])/g, " $1")
   }, [pathname])
-  return <div className="tw-flex-1">
+  return <div className="flex-1">
     {children}
   </div>
 }
@@ -29,7 +29,7 @@ export default function Routes() {
   const [showNav, setShowNav] = useState(true);
   return (
     <Router>
-      <div className="tw-flex tw-flex-col tw-min-h-screen tw-h-full">
+      <div className="flex flex-col min-h-screen h-full">
         {showNav && <Nav homePg={homePg} setHomePg={setHomePg} />}
         <Suspense fallback={<LinearProgress />}>
           <RouterContainer>

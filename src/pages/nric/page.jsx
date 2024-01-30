@@ -21,9 +21,9 @@ export default function Nric({ setShowNav }) {
   //   // }
   // }, [location]);
   return (
-    <div className="tw-flex tw-justify-center tw-items-center tw-h-full tw-bg-gray-700" >
-      <Card title="NRIC" className="tw-p-8 tw-max-w-[375px]" >
-        <div className="tw-flex tw-flex-col tw-gap-8" >
+    <div className="flex justify-center items-center h-full bg-gray-700" >
+      <Card title="NRIC" className="p-8 max-w-[375px]" >
+        <div className="flex flex-col gap-8" >
           <Generator />
           <Validator />
           <CheckSum />

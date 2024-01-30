@@ -28,7 +28,7 @@ export default function Home({ setHomePg }) {
           right: 0,
         }}
       >
-        <div className="tw-mt-32">
+        <div className="mt-32">
           <h1 id="title">React Web App</h1>
         </div>
       </Box>

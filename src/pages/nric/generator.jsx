@@ -45,8 +45,8 @@ export default function Generator() {
   };
 
   return (
-    <div className="tw-flex">
-      <TextField label="Generate" value={nric} className="tw-grow" InputProps={{ sx: { borderTopRightRadius: 0, borderBottomRightRadius: 0 } }} />
+    <div className="flex">
+      <TextField label="Generate" value={nric} className="grow" InputProps={{ sx: { borderTopRightRadius: 0, borderBottomRightRadius: 0 } }} />
       <ClickAwayListener onClickAway={handleTooltipClose}>
         <Tooltip
           title="NRIC copied to clipboard!"
