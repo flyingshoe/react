@@ -1,6 +1,6 @@
 import { useEffect } from "react";
-import "../styles/home.css";
-import bg from "../images/bg3.jpg";
+import "src/styles/home.css";
+import bg from "src/images/bg3.jpg";
 import { Box } from "@mui/material";
 
 export default function Home({ setHomePg }) {

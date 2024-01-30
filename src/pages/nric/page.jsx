@@ -1,7 +1,7 @@
 import { Card } from "@mui/material";
-import Generator from "pages/nric/generator";
-import Validator from "pages/nric/validator";
-import CheckSum from "pages/nric/checksum";
+import Generator from "src/pages/nric/generator";
+import Validator from "src/pages/nric/validator";
+import CheckSum from "src/pages/nric/checksum";
 import { useEffect } from "react";
 import { useLocation } from 'react-router-dom';
 
