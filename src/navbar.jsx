@@ -210,7 +210,7 @@ export default function Navbar() {
           <Box
             sx={{
               flexGrow: 1,
-              display: { xs: "none", sm: "flex", justifyContent: "center" },
+              display: { xs: "none", sm: "flex" },
             }}
           >
             {navItems.map((item) => (

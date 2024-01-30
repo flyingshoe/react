@@ -28,7 +28,7 @@ export default function Home({ setHomePg }) {
           right: 0,
         }}
       >
-        <h1 className="text-white text-5xl mt-32 text-center animate-fade-up">
+        <h1 className="text-blue-300 font-bold text-5xl mt-32 text-center animate-fade-up">
           React Web App
         </h1>
       </Box>
