@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import "src/styles/home.css";
+// import "src/styles/home.css";
 import bg from "src/images/bg3.jpg";
 import { Box } from "@mui/material";
 
@@ -28,9 +28,9 @@ export default function Home({ setHomePg }) {
           right: 0,
         }}
       >
-        <div className="mt-32">
-          <h1 id="title">React Web App</h1>
-        </div>
+        <h1 className="text-white text-5xl mt-32 text-center animate-fade-up">
+          React Web App
+        </h1>
       </Box>
     </div>
   );

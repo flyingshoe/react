@@ -201,6 +201,7 @@ export default function Navbar() {
                 color: "transparent",
                 textDecoration: "none",
               }}
+              // className="hidden sm:flex"
             >
               react
             </Typography>
