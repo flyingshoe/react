@@ -2,7 +2,7 @@ import React from "react";
 import { createRoot } from "react-dom/client";
 import Router from "./router";
 import * as serviceWorkerRegistration from "./serviceWorkerRegistration";
-import "src/styles/index.css"
+import "src/index.css"
 
 const container = document.getElementById("root");
 const root = createRoot(container);
