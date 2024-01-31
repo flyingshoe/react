@@ -9,6 +9,15 @@ permissions:
   pages: write
   id-token: write
 jobs:
+  # Clean up files to do a clean install (NOT always needed)
+  prepare:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Remove package-lock.json
+        run: rm package-lock.json -f
+      - name: Remove node_modules folder
+        run: rm node_modules -f
+        
   # Create Build Files
   build:
     runs-on: ubuntu-latest
