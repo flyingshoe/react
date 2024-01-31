@@ -55,7 +55,7 @@ export default function CheckSum() {
 
 
   return (
-    <div className="tw-flex">
+    <div className="flex">
       <TextField
         label="Checksum"
         onInput={getChecksum}
@@ -64,7 +64,7 @@ export default function CheckSum() {
         }}
         InputProps={{
           startAdornment: <InputAdornment position="start" ><Typography sx={{ color: "primary.main", fontWeight: 600 }}>S</Typography></InputAdornment>,
-          endAdornment: <InputAdornment position="start"><span className="tw-font-bold tw-text-red-500 tw-text-2xl">{checksum}</span></InputAdornment>,
+          endAdornment: <InputAdornment position="start"><span className="font-bold text-red-500 text-2xl">{checksum}</span></InputAdornment>,
           sx: { borderTopRightRadius: 0, borderBottomRightRadius: 0 }
         }}
       />
