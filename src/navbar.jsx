@@ -57,6 +57,10 @@ const navItems = [
     title: "NRIC",
     url: "/NRIC",
   },
+  {
+    title: "Stock App",
+    url: "/StockApp",
+  },
 ];
 
 export default function Navbar() {

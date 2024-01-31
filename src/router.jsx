@@ -13,6 +13,7 @@ const ImageUrl = lazy(() => import("src/pages/imageUrl"));
 const WhatsApp = lazy(() => import("src/pages/whatsapp"));
 const GroceryList = lazy(() => import("src/pages/groceryList"));
 const NRIC = lazy(() => import("src/pages/nric/page"));
+const StockApp = lazy(() => import("src/pages/stockApp"));
 
 const RouterContainer = ({ children }) => {
   const { pathname } = useLocation();
@@ -46,6 +47,7 @@ export default function Routes() {
               <Route path="/Whatsapp" component={WhatsApp} />
               <Route path="/GroceryList" component={GroceryList} />
               <Route path="/NRIC" ><NRIC setShowNav={setShowNav} /></Route>
+              <Route path="/StockApp" component={StockApp} />
             </Switch>
           </RouterContainer>
         </Suspense>
