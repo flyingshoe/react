@@ -14,6 +14,7 @@ const WhatsApp = lazy(() => import("src/pages/whatsapp"));
 const GroceryList = lazy(() => import("src/pages/groceryList"));
 const NRIC = lazy(() => import("src/pages/nric/page"));
 const StockApp = lazy(() => import("src/pages/stockApp"));
+const ReactFlow = lazy(() => import("src/pages/reactFlow"));
 
 const RouterContainer = ({ children }) => {
   const { pathname } = useLocation();
@@ -48,6 +49,7 @@ export default function Routes() {
               <Route path="/GroceryList" component={GroceryList} />
               <Route path="/NRIC" ><NRIC setShowNav={setShowNav} /></Route>
               <Route path="/StockApp" component={StockApp} />
+              <Route path="/ReactFlow" component={ReactFlow} />
             </Switch>
           </RouterContainer>
         </Suspense>
