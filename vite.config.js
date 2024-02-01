@@ -26,6 +26,7 @@ export default defineConfig({
       name: "reactHost",
       filename: "remoteEntry.js",
       remotes: {
+        // stockApp: "http://localhost:4173/assets/remoteEntry.js",
         stockApp: "https://flyingshoe.github.io/svelte-stock-avg-calc/assets/remoteEntry.js",
       },
     }),
