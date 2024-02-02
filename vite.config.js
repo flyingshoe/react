@@ -10,10 +10,11 @@ export default defineConfig({
       src: "/src",
     },
   },
-  // server: {
-  //   host: 'localhost',
-  //   port: 3000,
-  // }
+  server: {
+    open: true,
+    // host: 'localhost',
+    // port: 3000,
+  },
   plugins: [
     react(),
     VitePWA({
