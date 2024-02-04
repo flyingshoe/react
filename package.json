@@ -41,7 +41,8 @@
     "analyzecss": "source-map-explorer 'build/static/css/*.css'",
     "dev": "vite",
     "build": "vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "all": "vite build && vite preview"
   },
   "eslintConfig": {
     "extends": "react-app"
