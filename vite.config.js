@@ -29,10 +29,17 @@ export default defineConfig({
       remotes: {
         // stockApp: "http://localhost:4173/assets/remoteEntry.js",
         stockApp: "https://flyingshoe.github.io/svelte-stock-avg-calc/assets/remoteEntry.js",
+        gushi: {
+          // external: "http://localhost:3001/remoteEntry.js",
+          external: "https://comcalc.neocities.org/gushipro/remoteEntry.js",
+          from: "webpack",
+          format: "var",
+        },
       },
+      shared: ["react"],
     }),
   ],
   build: {
-    target: "ES2022" 
+    target: "ES2022",
   },
 });

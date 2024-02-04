@@ -61,6 +61,10 @@ const navItems = [
     title: "Stock App",
     url: "/StockApp",
   },
+  {
+    title: "Daily Report",
+    url: "/DailyReport",
+  },
 ];
 
 export default function Navbar() {
