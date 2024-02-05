@@ -58,12 +58,12 @@ const navItems = [
     url: "/NRIC",
   },
   {
-    title: "Stock App",
-    url: "/StockApp",
-  },
-  {
     title: "Daily Report",
     url: "/DailyReport",
+  },
+  {
+    title: "Stock App",
+    url: "/StockApp",
   },
 ];
 
