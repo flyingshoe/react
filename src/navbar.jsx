@@ -58,7 +58,7 @@ const navItems = [
     url: "/NRIC",
   },
   {
-    title: "Daily Report",
+    title: "Kanban",
     url: "/DailyReport",
   },
   {
