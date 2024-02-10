@@ -56,7 +56,18 @@ export default function GroceryDrawer({
         onOpen={handleClickOpen}
         sx={{
           "& .MuiDrawer-paperAnchorRight": {
-            width: "80%",
+            width: {
+              xs: "80%",
+              sm: "70%",
+              md: "50%",
+              lg: "30%",
+            },
+            // xs: {
+            //   maxWidth: "80%",
+            // },
+            // sm: {
+            //   width: "80%",
+            // },
           },
         }}
       >
