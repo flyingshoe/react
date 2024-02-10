@@ -13,6 +13,8 @@ import {
   Fab,
   Stack,
   SwipeableDrawer,
+  Tab,
+  Tabs,
   TextField,
 } from "@mui/material";
 import EditIcon from "@mui/icons-material/Edit";
@@ -34,6 +36,7 @@ export default function GroceryDrawer({
   const handleClose = () => {
     setOpen(false);
   };
+  const [tabSel, setTabSel] = useState("added");
 
   return (
     <div>
@@ -52,12 +55,13 @@ export default function GroceryDrawer({
         onClose={handleClose}
         onOpen={handleClickOpen}
         sx={{
-          '& .MuiDrawer-paperAnchorRight': {
-            maxWidth: '80%'
-          }
+          "& .MuiDrawer-paperAnchorRight": {
+            width: "80%",
+          },
         }}
       >
         <Container>
+          {/* Add new Item */}
           <Stack
             direction="row"
             alignItems="center"
@@ -93,29 +97,72 @@ export default function GroceryDrawer({
             </Avatar>
           </Stack>
 
+          {/* Tabs - Added/Not Added */}
+          <Tabs
+            value={tabSel}
+            onChange={(_, val) => {
+              setTabSel(val);
+            }}
+            variant="fullWidth"
+            aria-label="grocery tabs"
+            textColor="secondary"
+            indicatorColor="secondary"
+          >
+            <Tab label="Added" value="added" />
+            <Tab label="Not Added" value="notAdded" />
+          </Tabs>
           <List sx={{ pt: 0 }}>
-            {savedList.map(({ id, title, added }) => (
-              <ListItem disableGutters key={id}>
-                <ListItemButton sx={{ px: 0 }} onClick={() => handleCheck(id)}>
-                  <ListItemAvatar>
-                    <Checkbox
-                      size="large"
-                      sx={{ pl: 0 }}
-                      checked={added === true}
-                    />
-                  </ListItemAvatar>
-                  <ListItemText primary={title} />
-                  <DeleteIcon
-                    sx={{ color: red[600] }}
-                    fontSize="large"
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      handleDelete(id);
-                    }}
-                  />
-                </ListItemButton>
-              </ListItem>
-            ))}
+            {tabSel === "added" &&
+              savedList
+                .filter(({ added }) => added === true)
+                .sort((a, b) => a.title.localeCompare(b.title))
+                .map(({ id, title, added }) => (
+                  <ListItem disableGutters key={id}>
+                    <ListItemButton
+                      sx={{ px: 0 }}
+                      onClick={() => handleCheck(id)}
+                    >
+                      <ListItemAvatar>
+                        <Checkbox size="large" sx={{ pl: 0 }} checked={true} />
+                      </ListItemAvatar>
+                      <ListItemText primary={title} />
+                      {/* <DeleteIcon
+                        sx={{ color: red[600] }}
+                        fontSize="large"
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          handleDelete(id);
+                        }}
+                      /> */}
+                    </ListItemButton>
+                  </ListItem>
+                ))}
+
+            {tabSel === "notAdded" &&
+              savedList
+                .filter(({ added }) => added === false)
+                .sort((a, b) => a.title.localeCompare(b.title))
+                .map(({ id, title, added }) => (
+                  <ListItem disableGutters key={id}>
+                    <ListItemButton
+                      sx={{ px: 0 }}
+                      onClick={() => handleCheck(id)}
+                    >
+                      <ListItemAvatar>
+                        <Checkbox size="large" sx={{ pl: 0 }} checked={false} />
+                      </ListItemAvatar>
+                      <ListItemText primary={title} />
+                      <DeleteIcon
+                        sx={{ color: red[600] }}
+                        fontSize="large"
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          handleDelete(id);
+                        }}
+                      />
+                    </ListItemButton>
+                  </ListItem>
+                ))}
           </List>
         </Container>
       </SwipeableDrawer>
