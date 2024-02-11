@@ -1,4 +1,4 @@
-import Avatar from "@mui/material/Avatar";
+import LocalGroceryStoreIcon from "@mui/icons-material/LocalGroceryStore";
 import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
 import ListItemAvatar from "@mui/material/ListItemAvatar";
@@ -47,7 +47,7 @@ export default function GroceryDrawer({
         sx={{ position: "fixed", bottom: 30, right: 30 }}
         onClick={handleClickOpen}
       >
-        <EditIcon />
+        <LocalGroceryStoreIcon />
       </Fab>
 
       <SwipeableDrawer
