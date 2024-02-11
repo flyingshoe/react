@@ -71,11 +71,13 @@ export default function GroceryList() {
   };
 
   const handleAdd = (title) => {
-    // Prepend to start
-    setSavedList([
-      { id: Date.now().toString(), title, done: false, added: false },
-      ...savedList,
-    ]);
+    if (title.trim() !== "") {
+      // Prepend to start
+      setSavedList([
+        { id: Date.now().toString(), title, done: false, added: false },
+        ...savedList,
+      ]);
+    }
   };
 
   const ItemLine = ({ item: { id, title, done } }) => {
