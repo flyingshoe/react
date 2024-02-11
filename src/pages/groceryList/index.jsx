@@ -71,11 +71,13 @@ export default function GroceryList() {
   };
 
   const handleAdd = (title) => {
-    // Prepend to start
-    setSavedList([
-      { id: Date.now().toString(), title, done: false, added: false },
-      ...savedList,
-    ]);
+    if (title.trim() !== "") {
+      // Prepend to start
+      setSavedList([
+        { id: Date.now().toString(), title, done: false, added: false },
+        ...savedList,
+      ]);
+    }
   };
 
   const ItemLine = ({ item: { id, title, done } }) => {
@@ -106,7 +108,14 @@ export default function GroceryList() {
       {savedList.filter(({ added, done }) => added === true && done !== true)
         .length > 0 && (
         <>
-          <Typography variant="h3" sx={{ mb: 3, color: purple[700] }}>
+          <Typography
+            variant="h3"
+            className="select-none"
+            sx={{ mb: 3, color: purple[700] }}
+            onClick={() =>
+              navigator.clipboard.writeText(localStorage.getItem("groceryList"))
+            }
+          >
             Grocery List
           </Typography>
           <Stack direction="column" spacing={2} sx={{ mb: 4 }}>

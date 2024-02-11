@@ -39,7 +39,7 @@
   "scripts": {
     "analyze": "source-map-explorer 'build/static/js/*.js'",
     "analyzecss": "source-map-explorer 'build/static/css/*.css'",
-    "dev": "vite",
+    "dev": "vite --host",
     "build": "vite build",
     "preview": "vite preview",
     "all": "vite build && vite preview"

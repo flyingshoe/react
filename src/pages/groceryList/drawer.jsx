@@ -1,4 +1,4 @@
-import Avatar from "@mui/material/Avatar";
+import LocalGroceryStoreIcon from "@mui/icons-material/LocalGroceryStore";
 import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
 import ListItemAvatar from "@mui/material/ListItemAvatar";
@@ -11,6 +11,7 @@ import {
   Checkbox,
   Container,
   Fab,
+  IconButton,
   Stack,
   SwipeableDrawer,
   Tab,
@@ -46,7 +47,7 @@ export default function GroceryDrawer({
         sx={{ position: "fixed", bottom: 30, right: 30 }}
         onClick={handleClickOpen}
       >
-        <EditIcon />
+        <LocalGroceryStoreIcon />
       </Fab>
 
       <SwipeableDrawer
@@ -62,66 +63,71 @@ export default function GroceryDrawer({
               md: "50%",
               lg: "30%",
             },
-            // xs: {
-            //   maxWidth: "80%",
-            // },
-            // sm: {
-            //   width: "80%",
-            // },
           },
         }}
       >
         <Container>
           {/* Add new Item */}
           <Stack
-            direction="row"
-            alignItems="center"
-            justifyContent="space-between"
             sx={{
-              width: "100%",
-              pt: 3,
               position: "sticky",
               top: 0,
               backgroundColor: "white",
               zIndex: 1,
             }}
           >
-            <TextField
-              inputRef={inputRef}
-              label="Add Item"
-              sx={{ flexGrow: 1 }}
-              onKeyDown={(e) => {
-                if (e.key === "Enter") {
-                  handleAdd(e.target.value);
-                  e.target.value = "";
-                }
+            {/* Tabs - Added/Not Added */}
+            <Tabs
+              value={tabSel}
+              onChange={(_, val) => {
+                setTabSel(val);
               }}
-            />
-            <Avatar
-              sx={{ bgcolor: green[100], color: green[600], ml: 1 }}
-              onClick={() => {
-                handleAdd(inputRef.current.value);
-                inputRef.current.value = "";
+              variant="fullWidth"
+              aria-label="grocery tabs"
+              textColor="secondary"
+              indicatorColor="secondary"
+              sx={{
+                mt: 1,
               }}
             >
-              <AddIcon />
-            </Avatar>
+              <Tab label="Added" value="added" />
+              <Tab label="All" value="all" />
+            </Tabs>
+
+            {tabSel === "all" && (
+              <Stack
+                direction="row"
+                alignItems="center"
+                justifyContent="space-between"
+                sx={{
+                  mt: 2,
+                }}
+              >
+                <TextField
+                  inputRef={inputRef}
+                  label="Add Item"
+                  sx={{ flexGrow: 1 }}
+                  onKeyDown={(e) => {
+                    if (e.key === "Enter") {
+                      handleAdd(e.target.value);
+                      e.target.value = "";
+                    }
+                  }}
+                />
+                <IconButton
+                  disableRipple
+                  onClick={() => {
+                    handleAdd(inputRef.current.value);
+                    inputRef.current.value = "";
+                  }}
+                  sx={{ bgcolor: green[100], color: green[600], ml: 1 }}
+                >
+                  <AddIcon />
+                </IconButton>
+              </Stack>
+            )}
           </Stack>
 
-          {/* Tabs - Added/Not Added */}
-          <Tabs
-            value={tabSel}
-            onChange={(_, val) => {
-              setTabSel(val);
-            }}
-            variant="fullWidth"
-            aria-label="grocery tabs"
-            textColor="secondary"
-            indicatorColor="secondary"
-          >
-            <Tab label="Added" value="added" />
-            <Tab label="Not Added" value="notAdded" />
-          </Tabs>
           <List sx={{ pt: 0 }}>
             {tabSel === "added" &&
               savedList
@@ -137,21 +143,13 @@ export default function GroceryDrawer({
                         <Checkbox size="large" sx={{ pl: 0 }} checked={true} />
                       </ListItemAvatar>
                       <ListItemText primary={title} />
-                      {/* <DeleteIcon
-                        sx={{ color: red[600] }}
-                        fontSize="large"
-                        onClick={(e) => {
-                          e.stopPropagation();
-                          handleDelete(id);
-                        }}
-                      /> */}
                     </ListItemButton>
                   </ListItem>
                 ))}
 
-            {tabSel === "notAdded" &&
+            {tabSel === "all" &&
               savedList
-                .filter(({ added }) => added === false)
+                // .filter(({ added }) => added === false)
                 .sort((a, b) => a.title.localeCompare(b.title))
                 .map(({ id, title, added }) => (
                   <ListItem disableGutters key={id}>
@@ -160,7 +158,7 @@ export default function GroceryDrawer({
                       onClick={() => handleCheck(id)}
                     >
                       <ListItemAvatar>
-                        <Checkbox size="large" sx={{ pl: 0 }} checked={false} />
+                        <Checkbox size="large" sx={{ pl: 0 }} checked={added} />
                       </ListItemAvatar>
                       <ListItemText primary={title} />
                       <DeleteIcon
