@@ -11,7 +11,12 @@ import { useEffect, useState } from "react";
 import { groceryList } from "./constant";
 import { green, purple } from "@mui/material/colors";
 import GroceryDrawer from "./drawer";
-import { RestartAlt } from "@mui/icons-material";
+import {
+  Done,
+  Payment,
+  RestartAlt,
+  ShoppingCartCheckout,
+} from "@mui/icons-material";
 
 const lsKey = "groceryList";
 
@@ -141,14 +146,36 @@ export default function GroceryList() {
         .length > 0 && (
         <>
           <div className="flex justify-between items-center mb-4">
-            <Typography variant="h3" sx={{ color: green[600] }}>
+            <Typography
+              variant="h3"
+              sx={{ color: green[600] }}
+              className="w-min"
+            >
               {savedList.filter(
                 ({ added, done }) => added === true && done !== true
-              ).length > 0
-                ? "Done"
-                : "Time to Checkout!"}
+              ).length > 0 ? (
+                "Done"
+              ) : (
+                <span>
+                  Time to Checkout
+                  <span className="whitespace-nowrap">
+                    <Done fontSize="inherit" />
+                    <ShoppingCartCheckout
+                      fontSize="inherit"
+                      color="secondary"
+                    />
+                    <Payment fontSize="inherit" color="primary" />
+                  </span>
+                </span>
+              )}
             </Typography>
-            <Button startIcon={<RestartAlt/>} variant="contained" color="secondary" onClick={unselectAll}>
+            <Button
+              startIcon={<RestartAlt />}
+              variant="contained"
+              color="secondary"
+              onClick={unselectAll}
+              size="large"
+            >
               Reset
             </Button>
           </div>
