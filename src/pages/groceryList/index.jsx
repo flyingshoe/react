@@ -1,4 +1,5 @@
 import {
+  Button,
   Checkbox,
   Container,
   FormControlLabel,
@@ -10,6 +11,12 @@ import { useEffect, useState } from "react";
 import { groceryList } from "./constant";
 import { green, purple } from "@mui/material/colors";
 import GroceryDrawer from "./drawer";
+import {
+  Done,
+  Payment,
+  RestartAlt,
+  ShoppingCartCheckout,
+} from "@mui/icons-material";
 
 const lsKey = "groceryList";
 
@@ -103,6 +110,10 @@ export default function GroceryList() {
     );
   };
 
+  const unselectAll = () => {
+    setSavedList((list) => list.map((item) => ({ ...item, done: false })));
+  };
+
   return (
     <Container maxWidth="md" sx={{ py: 5 }}>
       {savedList.filter(({ added, done }) => added === true && done !== true)
@@ -134,13 +145,41 @@ export default function GroceryList() {
       {savedList.filter(({ added, done }) => added === true && done === true)
         .length > 0 && (
         <>
-          <Typography variant="h3" sx={{ mb: 3, color: green[600] }}>
-            {savedList.filter(
-              ({ added, done }) => added === true && done !== true
-            ).length > 0
-              ? "Done"
-              : "Time to Checkout!"}
-          </Typography>
+          <div className="flex justify-between items-center mb-4">
+            <Typography
+              variant="h3"
+              sx={{ color: green[600] }}
+              className="w-min"
+            >
+              {savedList.filter(
+                ({ added, done }) => added === true && done !== true
+              ).length > 0 ? (
+                "Done"
+              ) : (
+                <span>
+                  Time to Checkout
+                  <span className="whitespace-nowrap">
+                    <Done fontSize="inherit" />
+                    <ShoppingCartCheckout
+                      fontSize="inherit"
+                      color="secondary"
+                    />
+                    <Payment fontSize="inherit" color="primary" />
+                  </span>
+                </span>
+              )}
+            </Typography>
+            <Button
+              startIcon={<RestartAlt />}
+              variant="contained"
+              color="secondary"
+              onClick={unselectAll}
+              size="large"
+            >
+              Reset
+            </Button>
+          </div>
+
           <Stack direction="column" spacing={2}>
             <FormGroup>
               {savedList
