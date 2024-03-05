@@ -12,26 +12,35 @@ import ReactFlow, {
 import "reactflow/dist/style.css";
 import EditableNode from "src/pages/reactFlow/customNodes/editableNode";
 
+const baseNodeDefaults = { type: "editableNode" };
 const initialNodes = [
   {
+    ...baseNodeDefaults,
     id: "1",
     position: { x: 150, y: 50 },
     data: { label: "React" },
-    type: "editableNode",
   },
   {
+    ...baseNodeDefaults,
     id: "2",
     position: { x: 50, y: 150 },
     data: { label: "Svelte" },
-    type: "editableNode",
   },
 ];
+
+const baseEdgeDefaults = {
+  // type: "step"
+  // style: {
+  //   strokeWidth: 2,
+  //   stroke: "#009688",
+  // },
+};
 const initialEdges = [
   {
+    ...baseEdgeDefaults,
     id: "e1-2",
     source: "1",
     target: "2",
-    // type: "step"
   },
 ];
 
@@ -62,13 +71,13 @@ function Flow() {
   const onConnectEnd = useCallback(
     (event) => {
       if (!connectingNodeId.current || edgeUpdateInProgress.current) return;
-
       const targetIsPane = event.target.classList.contains("react-flow__pane");
 
       if (targetIsPane) {
         // we need to remove the wrapper bounds, in order to get the correct position
         const id = Date.now().toString();
         const newNode = {
+          ...baseNodeDefaults,
           id,
           position: screenToFlowPosition({
             x: event.clientX,
@@ -76,12 +85,12 @@ function Flow() {
           }),
           data: { label: `` },
           origin: [0.5, 0.0],
-          type: "editableNode",
         };
 
         setNodes((nds) => nds.concat(newNode));
         setEdges((eds) =>
           eds.concat({
+            ...baseEdgeDefaults,
             id,
             source:
               handleTypeRef.current === "source"
@@ -91,7 +100,6 @@ function Flow() {
               handleTypeRef.current === "source"
                 ? id
                 : connectingNodeId.current,
-            // type: "step",
           })
         );
       }
@@ -109,6 +117,7 @@ function Flow() {
 
   const onEdgeUpdate = useCallback((oldEdge, newConnection) => {
     edgeUpdateSuccessful.current = true;
+
     setEdges((els) => updateEdge(oldEdge, newConnection, els));
   }, []);
 

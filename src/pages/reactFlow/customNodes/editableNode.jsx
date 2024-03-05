@@ -12,7 +12,7 @@ function TextUpdaterNode({ data: { label }, isConnectable }) {
   }, []);
 
   return (
-    <div className="text-updater-node">
+    <div>
       <div>
         <input
           ref={textFieldRef}
@@ -27,11 +27,13 @@ function TextUpdaterNode({ data: { label }, isConnectable }) {
         type="target"
         position={Position.Top}
         isConnectable={isConnectable}
+        // className="bg-purple-700"
       />
       <Handle
         type="source"
         position={Position.Bottom}
         isConnectable={isConnectable}
+        // className="bg-purple-700"
       />
     </div>
   );
