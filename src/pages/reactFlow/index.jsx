@@ -9,10 +9,21 @@ import ReactFlow, {
   ReactFlowProvider,
 } from "reactflow";
 import "reactflow/dist/style.css";
+import EditableNode from "src/pages/reactFlow/customNodes/editableNode";
 
 const initialNodes = [
-  { id: "1", position: { x: 50, y: 50 }, data: { label: "React" } },
-  { id: "2", position: { x: 150, y: 150 }, data: { label: "Svelte" } },
+  {
+    id: "1",
+    position: { x: 50, y: 50 },
+    data: { label: "React" },
+    type: "editableNode",
+  },
+  {
+    id: "2",
+    position: { x: 150, y: 150 },
+    data: { label: "Svelte" },
+    type: "editableNode",
+  },
 ];
 const initialEdges = [
   {
@@ -23,7 +34,11 @@ const initialEdges = [
   },
 ];
 
-function Diagram() {
+// we define the nodeTypes outside of the component to prevent re-renderings
+// you could also use useMemo inside the component
+const nodeTypes = { editableNode: EditableNode };
+
+function Flow() {
   const [nodes, setNodes, onNodesChange] = useNodesState(initialNodes);
   const [edges, setEdges, onEdgesChange] = useEdgesState(initialEdges);
   const handleTypeRef = useRef(null);
@@ -58,8 +73,9 @@ function Diagram() {
             x: event.clientX,
             y: event.clientY,
           }),
-          data: { label: `Node ${id}` },
+          data: { label: `` },
           origin: [0.5, 0.0],
+          type: "editableNode",
         };
 
         setNodes((nds) => nds.concat(newNode));
@@ -67,9 +83,13 @@ function Diagram() {
           eds.concat({
             id,
             source:
-              handleTypeRef.current === "source" ? connectingNodeId.current : id,
+              handleTypeRef.current === "source"
+                ? connectingNodeId.current
+                : id,
             target:
-              handleTypeRef.current === "source" ? id : connectingNodeId.current,
+              handleTypeRef.current === "source"
+                ? id
+                : connectingNodeId.current,
             // type: "step",
           })
         );
@@ -89,18 +109,19 @@ function Diagram() {
         onConnectStart={onConnectStart}
         onConnectEnd={onConnectEnd}
         fitView
+        nodeTypes={nodeTypes}
       >
-        <Background />
+        {/* <Background /> */}
         <Controls />
       </ReactFlow>
     </div>
   );
 }
 
-export default function DiagramProvider() {
+export default function FlowProvider() {
   return (
     <ReactFlowProvider>
-      <Diagram />
+      <Flow />
     </ReactFlowProvider>
   );
 }
