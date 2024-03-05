@@ -14,11 +14,19 @@ const initialNodes = [
   { id: "1", position: { x: 50, y: 50 }, data: { label: "React" } },
   { id: "2", position: { x: 150, y: 150 }, data: { label: "Svelte" } },
 ];
-const initialEdges = [{ id: "e1-2", source: "1", target: "2", type: "step" }];
+const initialEdges = [
+  {
+    id: "e1-2",
+    source: "1",
+    target: "2",
+    // type: "step"
+  },
+];
 
 function Diagram() {
   const [nodes, setNodes, onNodesChange] = useNodesState(initialNodes);
   const [edges, setEdges, onEdgesChange] = useEdgesState(initialEdges);
+  const handleTypeRef = useRef(null);
 
   const reactFlowWrapper = useRef(null);
   const connectingNodeId = useRef(null);
@@ -30,7 +38,8 @@ function Diagram() {
     setEdges((eds) => addEdge(params, eds));
   }, []);
 
-  const onConnectStart = useCallback((_, { nodeId }) => {
+  const onConnectStart = useCallback((_, { nodeId, handleType }) => {
+    handleTypeRef.current = handleType;
     connectingNodeId.current = nodeId;
   }, []);
 
@@ -55,7 +64,14 @@ function Diagram() {
 
         setNodes((nds) => nds.concat(newNode));
         setEdges((eds) =>
-          eds.concat({ id, source: connectingNodeId.current, target: id })
+          eds.concat({
+            id,
+            source:
+              handleTypeRef.current === "source" ? connectingNodeId.current : id,
+            target:
+              handleTypeRef.current === "source" ? id : connectingNodeId.current,
+            // type: "step",
+          })
         );
       }
     },
