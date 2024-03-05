@@ -65,6 +65,10 @@ const navItems = [
     title: "Stock App",
     url: "/StockApp",
   },
+  {
+    title: "React Flow",
+    url: "/ReactFlow",
+  },
 ];
 
 export default function Navbar() {
