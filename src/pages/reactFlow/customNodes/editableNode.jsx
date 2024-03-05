@@ -19,6 +19,7 @@ function TextUpdaterNode({ data: { label }, isConnectable }) {
           name="text"
           //   onChange={onChange}
           className="p-2 w-44 text-center border-2 rounded border-purple-700"
+          autoComplete="off"
         />
       </div>
 
