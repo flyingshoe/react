@@ -18,7 +18,7 @@ function TextUpdaterNode({ data: { label }, isConnectable }) {
           ref={textFieldRef}
           name="text"
           //   onChange={onChange}
-          className="p-2 w-44 text-center border-2 rounded border-purple-400"
+          className="p-2 w-44 text-center border-2 rounded border-purple-700"
         />
       </div>
 

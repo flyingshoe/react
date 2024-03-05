@@ -7,6 +7,7 @@ import ReactFlow, {
   addEdge,
   useReactFlow,
   ReactFlowProvider,
+  updateEdge,
 } from "reactflow";
 import "reactflow/dist/style.css";
 import EditableNode from "src/pages/reactFlow/customNodes/editableNode";
@@ -14,13 +15,13 @@ import EditableNode from "src/pages/reactFlow/customNodes/editableNode";
 const initialNodes = [
   {
     id: "1",
-    position: { x: 50, y: 50 },
+    position: { x: 150, y: 50 },
     data: { label: "React" },
     type: "editableNode",
   },
   {
     id: "2",
-    position: { x: 150, y: 150 },
+    position: { x: 50, y: 150 },
     data: { label: "Svelte" },
     type: "editableNode",
   },
@@ -60,7 +61,7 @@ function Flow() {
 
   const onConnectEnd = useCallback(
     (event) => {
-      if (!connectingNodeId.current) return;
+      if (!connectingNodeId.current || edgeUpdateInProgress.current) return;
 
       const targetIsPane = event.target.classList.contains("react-flow__pane");
 
@@ -98,6 +99,28 @@ function Flow() {
     [screenToFlowPosition]
   );
 
+  const edgeUpdateSuccessful = useRef(true);
+  const edgeUpdateInProgress = useRef(false);
+
+  const onEdgeUpdateStart = useCallback(() => {
+    edgeUpdateSuccessful.current = false;
+    edgeUpdateInProgress.current = true;
+  }, []);
+
+  const onEdgeUpdate = useCallback((oldEdge, newConnection) => {
+    edgeUpdateSuccessful.current = true;
+    setEdges((els) => updateEdge(oldEdge, newConnection, els));
+  }, []);
+
+  const onEdgeUpdateEnd = useCallback((_, edge) => {
+    if (!edgeUpdateSuccessful.current) {
+      setEdges((eds) => eds.filter((e) => e.id !== edge.id));
+    }
+
+    edgeUpdateSuccessful.current = true;
+    edgeUpdateInProgress.current = false;
+  }, []);
+
   return (
     <div className="w-full h-full bg-blue-50" ref={reactFlowWrapper}>
       <ReactFlow
@@ -110,6 +133,9 @@ function Flow() {
         onConnectEnd={onConnectEnd}
         fitView
         nodeTypes={nodeTypes}
+        onEdgeUpdate={onEdgeUpdate}
+        onEdgeUpdateStart={onEdgeUpdateStart}
+        onEdgeUpdateEnd={onEdgeUpdateEnd}
       >
         {/* <Background /> */}
         <Controls />
