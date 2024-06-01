@@ -87,6 +87,12 @@ export default function GroceryList() {
     }
   };
 
+  const handleReset = () => {
+    setSavedList((list) =>
+      list.map((item) => ({ ...item, added: false, done: false }))
+    );
+  };
+
   const ItemLine = ({ item: { id, title, done } }) => {
     return (
       <FormControlLabel
@@ -198,6 +204,7 @@ export default function GroceryList() {
         handleDelete={handleDelete}
         handleAdd={handleAdd}
         handleCheck={handleAddedCheck}
+        handleReset={handleReset}
       />
     </Container>
   );

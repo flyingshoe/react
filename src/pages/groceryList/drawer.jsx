@@ -8,6 +8,7 @@ import AddIcon from "@mui/icons-material/Add";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { green, red } from "@mui/material/colors";
 import {
+  Button,
   Checkbox,
   Container,
   Fab,
@@ -18,15 +19,16 @@ import {
   Tabs,
   TextField,
 } from "@mui/material";
-import EditIcon from "@mui/icons-material/Edit";
 import { useState } from "react";
 import { useRef } from "react";
+import { RestartAlt } from "@mui/icons-material";
 
 export default function GroceryDrawer({
   savedList,
   handleDelete,
   handleAdd,
   handleCheck,
+  handleReset,
 }) {
   const inputRef = useRef();
   const [open, setOpen] = useState(false);
@@ -84,17 +86,37 @@ export default function GroceryDrawer({
               }}
               variant="fullWidth"
               aria-label="grocery tabs"
-              textColor="secondary"
-              indicatorColor="secondary"
               sx={{
                 mt: 1,
               }}
             >
               <Tab label="Added" value="added" />
-              <Tab label="All" value="all" />
+              <Tab label="Not Added" value="notAdded" />
             </Tabs>
 
-            {tabSel === "all" && (
+            {tabSel === "added" && (
+              <Stack
+                direction="row"
+                alignItems="center"
+                justifyContent="space-between"
+                sx={{
+                  mt: 2,
+                }}
+              >
+                <Button
+                  startIcon={<RestartAlt />}
+                  variant="contained"
+                  fullWidth
+                  onClick={handleReset}
+                  className="mb-2"
+                  color="error"
+                >
+                  Clear All
+                </Button>
+              </Stack>
+            )}
+
+            {tabSel === "notAdded" && (
               <Stack
                 direction="row"
                 alignItems="center"
@@ -134,9 +156,9 @@ export default function GroceryDrawer({
                 .filter(({ added }) => added === true)
                 .sort((a, b) => a.title.localeCompare(b.title))
                 .map(({ id, title, added }) => (
-                  <ListItem disableGutters key={id}>
+                  <ListItem disableGutters key={id} className="p-0">
                     <ListItemButton
-                      sx={{ px: 0 }}
+                      className="p-0"
                       onClick={() => handleCheck(id)}
                     >
                       <ListItemAvatar>
@@ -147,14 +169,14 @@ export default function GroceryDrawer({
                   </ListItem>
                 ))}
 
-            {tabSel === "all" &&
+            {tabSel === "notAdded" &&
               savedList
-                // .filter(({ added }) => added === false)
+                .filter(({ added }) => added === false)
                 .sort((a, b) => a.title.localeCompare(b.title))
                 .map(({ id, title, added }) => (
-                  <ListItem disableGutters key={id}>
+                  <ListItem disableGutters key={id} className="p-0">
                     <ListItemButton
-                      sx={{ px: 0 }}
+                      className="p-0"
                       onClick={() => handleCheck(id)}
                     >
                       <ListItemAvatar>
