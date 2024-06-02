@@ -108,10 +108,10 @@ export default function GroceryList() {
   };
 
   return (
-    <Container maxWidth="md" sx={{ py: 5 }}>
+    <Container maxWidth="md" sx={{ py: 5 }} className="h-full">
       {/* No items in cart */}
       {savedList.every(({ added }) => !added) && (
-        <div className="h-[calc(100vh-136px)] flex flex-col justify-center items-center space-y-4">
+        <div className="flex flex-col justify-center items-center space-y-4 h-full">
           <Typography variant="h4" sx={{ color: "primary.main" }}>
             No items in cart
           </Typography>
