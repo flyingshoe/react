@@ -19,17 +19,14 @@ import {
   Tabs,
   TextField,
 } from "@mui/material";
-import { useState } from "react";
+import { forwardRef, useImperativeHandle, useState } from "react";
 import { useRef } from "react";
 import { RestartAlt } from "@mui/icons-material";
 
-export default function GroceryDrawer({
-  savedList,
-  handleDelete,
-  handleAdd,
-  handleCheck,
-  handleReset,
-}) {
+export default forwardRef(function GroceryDrawer(
+  { savedList, handleDelete, handleAdd, handleCheck, handleReset },
+  ref
+) {
   const inputRef = useRef();
   const [open, setOpen] = useState(false);
   const handleClickOpen = () => {
@@ -40,6 +37,13 @@ export default function GroceryDrawer({
     setOpen(false);
   };
   const [tabSel, setTabSel] = useState("added");
+
+  useImperativeHandle(ref, () => ({
+    showAddItems() {
+      handleClickOpen();
+      setTabSel("notAdded");
+    },
+  }));
 
   return (
     <div>
@@ -199,4 +203,4 @@ export default function GroceryDrawer({
       </SwipeableDrawer>
     </div>
   );
-}
+});

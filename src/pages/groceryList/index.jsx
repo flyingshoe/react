@@ -7,7 +7,7 @@ import {
   Stack,
   Typography,
 } from "@mui/material";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { groceryList } from "./constant";
 import { green, purple } from "@mui/material/colors";
 import GroceryDrawer from "./drawer";
@@ -21,6 +21,7 @@ import {
 const lsKey = "groceryList";
 
 export default function GroceryList() {
+  const drawerRef = useRef();
   const [savedList, setSavedList] = useState(() => {
     if (lsKey in localStorage) {
       return JSON.parse(localStorage[lsKey]);
@@ -38,20 +39,6 @@ export default function GroceryList() {
 
     // Set the checked value
     tempList[idx].done = val;
-
-    // Reorder it, but first make a copy and remove it
-    // const tempItem = { ...tempList[idx] };
-    // tempList = tempList.filter(({ id }) => id !== tempItem.id);
-
-    // // if checked, move it to the bottom of the list
-    // if (val === true) {
-    //   tempList = [...tempList, tempItem];
-    // }
-
-    // // If unchecked move it to the top of the list
-    // else {
-    //   tempList = [tempItem, ...tempList];
-    // }
 
     // Save it
     setSavedList(tempList);
@@ -122,6 +109,23 @@ export default function GroceryList() {
 
   return (
     <Container maxWidth="md" sx={{ py: 5 }}>
+      {/* No items in cart */}
+      {savedList.every(({ added }) => !added) && (
+        <div className="h-[calc(100vh-136px)] flex flex-col justify-center items-center space-y-4">
+          <Typography variant="h4" sx={{ color: "primary.main" }}>
+            No items in cart
+          </Typography>
+          <Button
+            variant="contained"
+            color="secondary"
+            onClick={() => drawerRef.current.showAddItems()}
+          >
+            Add Items
+          </Button>
+        </div>
+      )}
+
+      {/* Grocery List (Not yet done) */}
       {savedList.filter(({ added, done }) => added === true && done !== true)
         .length > 0 && (
         <>
@@ -148,6 +152,7 @@ export default function GroceryList() {
         </>
       )}
 
+      {/* Done List */}
       {savedList.filter(({ added, done }) => added === true && done === true)
         .length > 0 && (
         <>
@@ -199,7 +204,9 @@ export default function GroceryList() {
         </>
       )}
 
+      {/* Shopping list Floating Action Button */}
       <GroceryDrawer
+        ref={drawerRef}
         savedList={savedList}
         handleDelete={handleDelete}
         handleAdd={handleAdd}
