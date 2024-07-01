@@ -2,9 +2,12 @@ import {
   Button,
   ClickAwayListener,
   Container,
+  Grid,
   TextField,
   Tooltip,
 } from "@mui/material";
+import CloudUploadIcon from "@mui/icons-material/CloudUpload";
+import ContentCopyIcon from "@mui/icons-material/ContentCopy";
 import { useState } from "react";
 
 export default function ImageUrl() {
@@ -63,34 +66,65 @@ export default function ImageUrl() {
   return (
     <Container
       maxWidth="sm"
-      style={{
-        display: "flex",
-        flexDirection: "column",
-        gap: 30,
-        paddingTop: 30,
-        paddingBottom: 30,
-      }}
+      className="flex flex-col h-full gap-8 justify-center"
     >
-      <input type="file" accept="image/*" onChange={handleFileInputChange} />
-      <img alt="" style={{ maxWidth: 300, maxHeight: 300 }} src={imgUrl} />
-      <TextField label="Base64 URL" multiline rows={4} value={imgUrl} />
-      <ClickAwayListener onClickAway={handleTooltipClose}>
-        <Tooltip
-          PopperProps={{
-            disablePortal: true,
-          }}
-          onClose={handleTooltipClose}
-          open={open}
-          disableFocusListener
-          disableHoverListener
-          disableTouchListener
-          title="Copied"
-        >
-          <Button variant="contained" onClick={copyUrl}>
-            Copy
+      <img alt="" className="max-w-72 max-h-72" src={imgUrl} />
+      <TextField
+        label="Base64 URL"
+        multiline
+        rows={4}
+        value={imgUrl}
+        sx={{
+          "& .MuiInputBase-input": {
+            overflowX: "hidden",
+          },
+        }}
+      />
+      <Grid container spacing={2}>
+        <Grid item xs={12} sm={6}>
+          <Button
+            variant="contained"
+            component="label"
+            startIcon={<CloudUploadIcon />}
+            size="large"
+            fullWidth
+          >
+            Upload Image
+            <input
+              type="file"
+              accept="image/*"
+              hidden
+              onChange={handleFileInputChange}
+            />
           </Button>
-        </Tooltip>
-      </ClickAwayListener>
+        </Grid>
+        <Grid item xs={12} sm={6}>
+          <ClickAwayListener onClickAway={handleTooltipClose}>
+            <Tooltip
+              PopperProps={{
+                disablePortal: true,
+              }}
+              onClose={handleTooltipClose}
+              open={open}
+              disableFocusListener
+              disableHoverListener
+              disableTouchListener
+              title="Copied"
+            >
+              <Button
+                variant="outlined"
+                color="secondary"
+                onClick={copyUrl}
+                startIcon={<ContentCopyIcon />}
+                size="large"
+                fullWidth
+              >
+                Copy Data URL
+              </Button>
+            </Tooltip>
+          </ClickAwayListener>
+        </Grid>
+      </Grid>
     </Container>
   );
 }
