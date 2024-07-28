@@ -77,7 +77,7 @@ export default function AddedTab({
           className="mb-2"
           color="error"
         >
-          Clear All
+          Reset
         </Button>
         <Button
           startIcon={<Add />}
