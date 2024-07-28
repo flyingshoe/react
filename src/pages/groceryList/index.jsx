@@ -8,7 +8,7 @@ import {
   Typography,
 } from "@mui/material";
 import { useEffect, useRef, useState } from "react";
-import { groceryList } from "./constant";
+import { defaultGroceryList } from "./constant";
 import { green, purple } from "@mui/material/colors";
 import GroceryDrawer from "./drawer";
 import {
@@ -24,58 +24,92 @@ export default function GroceryList() {
   const drawerRef = useRef();
   const [savedList, setSavedList] = useState(() => {
     if (lsKey in localStorage) {
-      return JSON.parse(localStorage[lsKey]);
+      return JSON.parse(localStorage[lsKey]).savedList ?? [];
     }
-    return groceryList;
+    return [];
+  });
+  const [groceryList, setGroceryList] = useState(() => {
+    if (lsKey in localStorage) {
+      return JSON.parse(localStorage[lsKey]).list ?? defaultGroceryList;
+    }
+    return defaultGroceryList;
   });
 
   useEffect(() => {
-    localStorage.setItem(lsKey, JSON.stringify(savedList));
-  }, [savedList]);
+    localStorage.setItem(
+      lsKey,
+      JSON.stringify({ list: groceryList, savedList })
+    );
+  }, [groceryList, savedList]);
+
+  const addToSavedList = (name) => {
+    setSavedList((list) => [
+      ...list,
+      {
+        id: Date.now().toString(),
+        name,
+        items: groceryList.filter(({ added }) => added).map(({ id }) => id),
+      },
+    ]);
+  };
+
+  const applySavedList = (id) => {
+    const mySavedList = savedList.find((item) => item.id === id);
+    const newGroceryList = groceryList.map((item) => ({
+      ...item,
+      added: mySavedList.items.includes(item.id),
+    }));
+
+    setGroceryList(newGroceryList);
+  };
+
+  const deleteSavedList = (id) => {
+    setSavedList((list) => list.filter((item) => item.id !== id));
+  };
 
   const handleDoneCheck = (e, val) => {
-    const idx = savedList.findIndex(({ id }) => id === e.target.name);
-    let tempList = [...savedList];
+    const idx = groceryList.findIndex(({ id }) => id === e.target.name);
+    let tempList = [...groceryList];
 
     // Set the checked value
     tempList[idx].done = val;
 
     // Save it
-    setSavedList(tempList);
+    setGroceryList(tempList);
   };
 
   const handleAddedCheck = (id) => {
-    const idx = savedList.findIndex((i) => i.id === id);
-    let tempList = [...savedList];
+    const idx = groceryList.findIndex((i) => i.id === id);
+    let tempList = [...groceryList];
 
     // Invert the checked value
     tempList[idx].added = !tempList[idx].added;
 
     // Save it
-    setSavedList(tempList);
+    setGroceryList(tempList);
   };
 
   const handleDelete = (id) => {
-    const idx = savedList.findIndex((i) => i.id === id);
-    let tempList = [...savedList];
+    const idx = groceryList.findIndex((i) => i.id === id);
+    let tempList = [...groceryList];
     tempList.splice(idx, 1);
 
     // Save it
-    setSavedList(tempList);
+    setGroceryList(tempList);
   };
 
   const handleAdd = (title) => {
     if (title.trim() !== "") {
       // Prepend to start
-      setSavedList([
+      setGroceryList([
         { id: Date.now().toString(), title, done: false, added: false },
-        ...savedList,
+        ...groceryList,
       ]);
     }
   };
 
   const handleReset = () => {
-    setSavedList((list) =>
+    setGroceryList((list) =>
       list.map((item) => ({ ...item, added: false, done: false }))
     );
   };
@@ -104,13 +138,13 @@ export default function GroceryList() {
   };
 
   const unselectAll = () => {
-    setSavedList((list) => list.map((item) => ({ ...item, done: false })));
+    setGroceryList((list) => list.map((item) => ({ ...item, done: false })));
   };
 
   return (
     <Container maxWidth="md" sx={{ py: 5 }} className="h-full">
       {/* No items in cart */}
-      {savedList.every(({ added }) => !added) && (
+      {groceryList.every(({ added }) => !added) && (
         <div className="flex flex-col justify-center items-center space-y-4 h-full">
           <Typography variant="h4" sx={{ color: "primary.main" }}>
             No items in cart
@@ -126,7 +160,7 @@ export default function GroceryList() {
       )}
 
       {/* Grocery List (Not yet done) */}
-      {savedList.filter(({ added, done }) => added === true && done !== true)
+      {groceryList.filter(({ added, done }) => added === true && done !== true)
         .length > 0 && (
         <>
           <Typography
@@ -141,7 +175,7 @@ export default function GroceryList() {
           </Typography>
           <Stack direction="column" spacing={2} sx={{ mb: 4 }}>
             <FormGroup>
-              {savedList
+              {groceryList
                 .filter(({ added, done }) => added === true && done !== true)
                 .sort((a, b) => a.title.localeCompare(b.title))
                 .map((item) => (
@@ -153,7 +187,7 @@ export default function GroceryList() {
       )}
 
       {/* Done List */}
-      {savedList.filter(({ added, done }) => added === true && done === true)
+      {groceryList.filter(({ added, done }) => added === true && done === true)
         .length > 0 && (
         <>
           <div className="flex justify-between items-center mb-4">
@@ -162,7 +196,7 @@ export default function GroceryList() {
               sx={{ color: green[600] }}
               className="w-min"
             >
-              {savedList.filter(
+              {groceryList.filter(
                 ({ added, done }) => added === true && done !== true
               ).length > 0 ? (
                 "Done"
@@ -193,7 +227,7 @@ export default function GroceryList() {
 
           <Stack direction="column" spacing={2}>
             <FormGroup>
-              {savedList
+              {groceryList
                 .filter(({ added, done }) => added === true && done === true)
                 .sort((a, b) => a.title.localeCompare(b.title))
                 .map((item) => (
@@ -207,11 +241,15 @@ export default function GroceryList() {
       {/* Shopping list Floating Action Button */}
       <GroceryDrawer
         ref={drawerRef}
-        savedList={savedList}
+        groceryList={groceryList}
         handleDelete={handleDelete}
         handleAdd={handleAdd}
         handleCheck={handleAddedCheck}
         handleReset={handleReset}
+        addToSavedList={addToSavedList}
+        savedList={savedList}
+        applySavedList={applySavedList}
+        deleteSavedList={deleteSavedList}
       />
     </Container>
   );
