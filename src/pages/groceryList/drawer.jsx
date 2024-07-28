@@ -11,9 +11,20 @@ import { forwardRef, useImperativeHandle, useState } from "react";
 import { useRef } from "react";
 import AddedTab from "src/pages/groceryList/tabs/added";
 import NotAddedTab from "src/pages/groceryList/tabs/notAdded";
+import SavedListTab from "src/pages/groceryList/tabs/savedList";
 
 export default forwardRef(function GroceryDrawer(
-  { savedList, handleDelete, handleAdd, handleCheck, handleReset },
+  {
+    groceryList,
+    handleDelete,
+    handleAdd,
+    handleCheck,
+    handleReset,
+    addToSavedList,
+    savedList,
+    applySavedList,
+    deleteSavedList
+  },
   ref
 ) {
   const inputRef = useRef();
@@ -84,22 +95,38 @@ export default forwardRef(function GroceryDrawer(
             >
               <Tab label="Added" value="added" />
               <Tab label="Not Added" value="notAdded" />
+              <Tab label="Saved List" value="savedList" />
             </Tabs>
 
             {tabSel == "added" && (
               <AddedTab
-                savedList={savedList}
+                groceryList={groceryList}
                 handleCheck={handleCheck}
                 handleReset={handleReset}
+                addToSavedList={addToSavedList}
               />
             )}
+
             {tabSel == "notAdded" && (
               <NotAddedTab
-                savedList={savedList}
+                groceryList={groceryList}
                 handleCheck={handleCheck}
                 inputRef={inputRef}
                 handleDelete={handleDelete}
                 handleAdd={handleAdd}
+              />
+            )}
+
+            {tabSel == "savedList" && (
+              <SavedListTab
+                groceryList={groceryList}
+                handleCheck={handleCheck}
+                inputRef={inputRef}
+                handleDelete={handleDelete}
+                handleAdd={handleAdd}
+                savedList={savedList}
+                applySavedList={applySavedList}
+                deleteSavedList={deleteSavedList}
               />
             )}
           </Stack>

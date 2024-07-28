@@ -8,7 +8,7 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import { green, red } from "@mui/material/colors";
 import { Checkbox, IconButton, Stack, TextField } from "@mui/material";
 export default function NotAddedTab({
-  savedList,
+  groceryList,
   handleCheck,
   inputRef,
   handleDelete,
@@ -47,7 +47,7 @@ export default function NotAddedTab({
         </IconButton>
       </Stack>
       <List sx={{ pt: 0 }}>
-        {savedList
+        {groceryList
           .filter(({ added }) => added === false)
           .sort((a, b) => a.title.localeCompare(b.title))
           .map(({ id, title, added }) => (

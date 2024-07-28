@@ -1,4 +1,4 @@
-export const groceryList = [
+export const defaultGroceryList = [
   { id: "1717302523425", title: "Big bihun", done: false, added: true },
   { id: "1717302397282", title: "Tung Hoon", done: false, added: true },
   { id: "1715828870962", title: "3 in 1 coffee ", done: false, added: false },
