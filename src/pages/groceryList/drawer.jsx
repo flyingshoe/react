@@ -23,7 +23,7 @@ export default forwardRef(function GroceryDrawer(
     addToSavedList,
     savedList,
     applySavedList,
-    deleteSavedList
+    deleteSavedList,
   },
   ref
 ) {
@@ -50,7 +50,7 @@ export default forwardRef(function GroceryDrawer(
       <Fab
         color="secondary"
         aria-label="edit"
-        sx={{ position: "fixed", bottom: 30, right: 30 }}
+        className="fixed right-8 bottom-8"
         onClick={handleClickOpen}
       >
         <LocalGroceryStoreIcon />
@@ -72,32 +72,22 @@ export default forwardRef(function GroceryDrawer(
           },
         }}
       >
-        <Container>
-          {/* Add new Item */}
-          <Stack
-            sx={{
-              position: "sticky",
-              top: 0,
-              backgroundColor: "white",
-              zIndex: 1,
+        {/* Add new Item */}
+        <Stack>
+          <Tabs
+            value={tabSel}
+            onChange={(_, val) => {
+              setTabSel(val);
             }}
+            variant="fullWidth"
+            aria-label="grocery tabs"
+            className="sticky top-0 bg-white z-10"
           >
-            <Tabs
-              value={tabSel}
-              onChange={(_, val) => {
-                setTabSel(val);
-              }}
-              variant="fullWidth"
-              aria-label="grocery tabs"
-              sx={{
-                mt: 1,
-              }}
-            >
-              <Tab label="Added" value="added" />
-              <Tab label="Not Added" value="notAdded" />
-              <Tab label="Saved List" value="savedList" />
-            </Tabs>
-
+            <Tab label="Added" value="added" />
+            <Tab label="Not Added" value="notAdded" />
+            <Tab label="Saved List" value="savedList" />
+          </Tabs>
+          <Container>
             {tabSel == "added" && (
               <AddedTab
                 groceryList={groceryList}
@@ -129,8 +119,8 @@ export default forwardRef(function GroceryDrawer(
                 deleteSavedList={deleteSavedList}
               />
             )}
-          </Stack>
-        </Container>
+          </Container>
+        </Stack>
       </SwipeableDrawer>
     </div>
   );

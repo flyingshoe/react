@@ -65,9 +65,7 @@ export default function AddedTab({
         alignItems="center"
         justifyContent="space-between"
         spacing={2}
-        sx={{
-          mt: 2,
-        }}
+        className="mt-4"
       >
         <Button
           startIcon={<RestartAlt />}

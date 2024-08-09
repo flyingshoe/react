@@ -20,9 +20,7 @@ export default function NotAddedTab({
         direction="row"
         alignItems="center"
         justifyContent="space-between"
-        sx={{
-          mt: 2,
-        }}
+        className="mt-4 sticky top-0"
       >
         <TextField
           inputRef={inputRef}
