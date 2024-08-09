@@ -10,6 +10,7 @@ import {
 import { forwardRef, useImperativeHandle, useState } from "react";
 import { useRef } from "react";
 import AddedTab from "src/pages/groceryList/tabs/added";
+import AllTab from "src/pages/groceryList/tabs/all";
 import NotAddedTab from "src/pages/groceryList/tabs/notAdded";
 import SavedListTab from "src/pages/groceryList/tabs/savedList";
 
@@ -84,7 +85,7 @@ export default forwardRef(function GroceryDrawer(
             className="sticky top-0 bg-white z-10"
           >
             <Tab label="Added" value="added" />
-            <Tab label="Not Added" value="notAdded" />
+            <Tab label="All" value="all" />
             <Tab label="Saved List" value="savedList" />
           </Tabs>
           <Container>
@@ -97,8 +98,8 @@ export default forwardRef(function GroceryDrawer(
               />
             )}
 
-            {tabSel == "notAdded" && (
-              <NotAddedTab
+            {tabSel == "all" && (
+              <AllTab
                 groceryList={groceryList}
                 handleCheck={handleCheck}
                 inputRef={inputRef}
