@@ -11,7 +11,6 @@ import { forwardRef, useImperativeHandle, useState } from "react";
 import { useRef } from "react";
 import AddedTab from "src/pages/groceryList/tabs/added";
 import AllTab from "src/pages/groceryList/tabs/all";
-import NotAddedTab from "src/pages/groceryList/tabs/notAdded";
 import SavedListTab from "src/pages/groceryList/tabs/savedList";
 
 export default forwardRef(function GroceryDrawer(
