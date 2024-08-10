@@ -61,7 +61,7 @@ export default function AddedTab({
   const stackRef = useRef(null);
   const [topOffset, setTopOffset] = useState(0);
   useEffect(() => {
-    setTopOffset(stackRef.current.getBoundingClientRect().top.toString());
+    setTopOffset(stackRef.current.getBoundingClientRect().top);
   }, []);
 
   return (
@@ -72,7 +72,7 @@ export default function AddedTab({
         alignItems="center"
         justifyContent="space-between"
         spacing={2}
-        className={`pt-4 sticky top-[${topOffset}px] bg-white z-10`}
+        className={`pt-4 sticky bg-white z-10`}
         sx={{ top: topOffset }}
       >
         <Button
