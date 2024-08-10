@@ -71,7 +71,7 @@ export default function AllTab({
   const stackRef = useRef(null);
   const [topOffset, setTopOffset] = useState(0);
   useEffect(() => {
-    setTopOffset(stackRef.current.getBoundingClientRect().top.toString());
+    setTopOffset(stackRef.current.getBoundingClientRect().top);
   }, []);
 
   return (
@@ -81,7 +81,8 @@ export default function AllTab({
         direction="row"
         alignItems="center"
         justifyContent="space-between"
-        className={`pt-4 sticky top-[${topOffset}px] bg-white z-10`}
+        className={`pt-4 sticky bg-white z-10`}
+        sx={{ top: topOffset }}
       >
         <TextField
           inputRef={filterInputRef}
