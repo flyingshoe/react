@@ -82,7 +82,7 @@ export default function AddedTab({
           className="mb-2"
           color="error"
         >
-          Reset
+          Clear
         </Button>
         <Button
           startIcon={<Add />}
@@ -90,9 +90,9 @@ export default function AddedTab({
           fullWidth
           onClick={showSaveListDialog}
           className="mb-2"
-          color="secondary"
+          color="success"
         >
-          Save List
+          Save
         </Button>
       </Stack>
       <List sx={{ pt: 0 }}>
