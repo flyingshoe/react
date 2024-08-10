@@ -57,7 +57,7 @@ export default function GroceryList() {
     const mySavedList = savedList.find((item) => item.id === id);
     const newGroceryList = groceryList.map((item) => ({
       ...item,
-      added: mySavedList.items.includes(item.id),
+      added: item.added === true || mySavedList.items.includes(item.id),
     }));
 
     setGroceryList(newGroceryList);
