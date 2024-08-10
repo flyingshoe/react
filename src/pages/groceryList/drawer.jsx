@@ -1,3 +1,4 @@
+import { Star } from "@mui/icons-material";
 import LocalGroceryStoreIcon from "@mui/icons-material/LocalGroceryStore";
 import {
   Container,
@@ -85,7 +86,7 @@ export default forwardRef(function GroceryDrawer(
           >
             <Tab label="Added" value="added" />
             <Tab label="All" value="all" />
-            <Tab label="Saved List" value="savedList" />
+            <Tab label={<Star color="warning" />} value="savedList" />
           </Tabs>
           <Container>
             {tabSel == "added" && (

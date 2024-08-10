@@ -17,7 +17,7 @@ import {
   Stack,
   TextField,
 } from "@mui/material";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { CloseOutlined } from "@mui/icons-material";
 export default function AllTab({
   groceryList,
@@ -68,19 +68,27 @@ export default function AllTab({
     );
   };
 
+  const stackRef = useRef(null);
+  const [topOffset, setTopOffset] = useState(0);
+  useEffect(() => {
+    setTopOffset(stackRef.current.getBoundingClientRect().top.toString());
+  }, []);
+
   return (
     <>
       <Stack
+        ref={stackRef}
         direction="row"
         alignItems="center"
         justifyContent="space-between"
-        className="mt-4"
+        className={`pt-4 sticky top-[${topOffset}px] bg-white z-10`}
       >
         <TextField
           inputRef={filterInputRef}
           label="Find Item"
           onChange={(e) => setFilterVal(e.target.value)}
           InputProps={{
+            autoComplete: "off",
             endAdornment: (
               <IconButton
                 disableRipple
@@ -115,7 +123,9 @@ export default function AllTab({
       </Stack>
       <List sx={{ pt: 0 }}>
         {groceryList
-          .filter(({ title }) => title.includes(filterVal))
+          .filter(({ title }) =>
+            title.toLowerCase().includes(filterVal.trim().toLowerCase())
+          )
           .sort((a, b) => a.title.localeCompare(b.title))
           .map(({ id, title, added }) => (
             <ListItem disableGutters key={id} className="p-0">
