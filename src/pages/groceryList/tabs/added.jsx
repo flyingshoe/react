@@ -5,7 +5,7 @@ import ListItemAvatar from "@mui/material/ListItemAvatar";
 import ListItemButton from "@mui/material/ListItemButton";
 import ListItemText from "@mui/material/ListItemText";
 import { Button, Checkbox, Stack } from "@mui/material";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import TextField from "@mui/material/TextField";
 import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
@@ -58,14 +58,21 @@ export default function AddedTab({
     );
   };
 
+  const stackRef = useRef(null);
+  const [topOffset, setTopOffset] = useState(0);
+  useEffect(() => {
+    setTopOffset(stackRef.current.getBoundingClientRect().top.toString());
+  }, []);
+
   return (
     <>
       <Stack
+        ref={stackRef}
         direction="row"
         alignItems="center"
         justifyContent="space-between"
         spacing={2}
-        className="mt-4"
+        className={`pt-4 sticky top-[${topOffset}px] bg-white z-10`}
       >
         <Button
           startIcon={<RestartAlt />}
@@ -75,7 +82,7 @@ export default function AddedTab({
           className="mb-2"
           color="error"
         >
-          Reset
+          Clear
         </Button>
         <Button
           startIcon={<Add />}
@@ -83,9 +90,9 @@ export default function AddedTab({
           fullWidth
           onClick={showSaveListDialog}
           className="mb-2"
-          color="secondary"
+          color="success"
         >
-          Save List
+          Save
         </Button>
       </Stack>
       <List sx={{ pt: 0 }}>
