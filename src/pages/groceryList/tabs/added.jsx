@@ -73,6 +73,7 @@ export default function AddedTab({
         justifyContent="space-between"
         spacing={2}
         className={`pt-4 sticky top-[${topOffset}px] bg-white z-10`}
+        sx={{ top: topOffset }}
       >
         <Button
           startIcon={<RestartAlt />}

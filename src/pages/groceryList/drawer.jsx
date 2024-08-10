@@ -82,7 +82,7 @@ export default forwardRef(function GroceryDrawer(
             }}
             variant="fullWidth"
             aria-label="grocery tabs"
-            className="sticky top-0 bg-white z-10"
+            className="sticky top-0 bg-white z-20"
           >
             <Tab label="Added" value="added" />
             <Tab label="All" value="all" />
