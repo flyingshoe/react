@@ -81,6 +81,7 @@ export default function AllTab({
           label="Find Item"
           onChange={(e) => setFilterVal(e.target.value)}
           InputProps={{
+            autoComplete: "off",
             endAdornment: (
               <IconButton
                 disableRipple
@@ -115,7 +116,9 @@ export default function AllTab({
       </Stack>
       <List sx={{ pt: 0 }}>
         {groceryList
-          .filter(({ title }) => title.includes(filterVal))
+          .filter(({ title }) =>
+            title.toLowerCase().includes(filterVal.trim().toLowerCase())
+          )
           .sort((a, b) => a.title.localeCompare(b.title))
           .map(({ id, title, added }) => (
             <ListItem disableGutters key={id} className="p-0">
