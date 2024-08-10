@@ -18,15 +18,16 @@ import {
   TextField,
 } from "@mui/material";
 import { useRef, useState } from "react";
+import { CloseOutlined } from "@mui/icons-material";
 export default function AllTab({
   groceryList,
   handleCheck,
-  inputRef,
   handleDelete,
   handleAdd,
 }) {
   const [open, setOpen] = useState(false);
-  const myInputRef = useRef(null);
+  const filterInputRef = useRef(null);
+  const [filterVal, setFilterVal] = useState("");
 
   const showAddNewItemDialog = () => {
     setOpen(true);
@@ -76,8 +77,24 @@ export default function AllTab({
         className="mt-4"
       >
         <TextField
-          inputRef={inputRef}
-          label="Add Item"
+          inputRef={filterInputRef}
+          label="Find Item"
+          onChange={(e) => setFilterVal(e.target.value)}
+          InputProps={{
+            endAdornment: (
+              <IconButton
+                disableRipple
+                onClick={() => {
+                  filterInputRef.current.value = "";
+                  setFilterVal("");
+                }}
+                sx={{ color: red[600] }}
+                size="small"
+              >
+                <CloseOutlined />
+              </IconButton>
+            ),
+          }}
           sx={{ flexGrow: 1 }}
           onKeyDown={(e) => {
             if (e.key === "Enter") {
@@ -98,6 +115,7 @@ export default function AllTab({
       </Stack>
       <List sx={{ pt: 0 }}>
         {groceryList
+          .filter(({ title }) => title.includes(filterVal))
           .sort((a, b) => a.title.localeCompare(b.title))
           .map(({ id, title, added }) => (
             <ListItem disableGutters key={id} className="p-0">
