@@ -5,7 +5,7 @@ import ListItemAvatar from "@mui/material/ListItemAvatar";
 import ListItemButton from "@mui/material/ListItemButton";
 import ListItemText from "@mui/material/ListItemText";
 import { Button, Checkbox, Stack } from "@mui/material";
-import { useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import TextField from "@mui/material/TextField";
 import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
@@ -58,22 +58,15 @@ export default function AddedTab({
     );
   };
 
-  const stackRef = useRef(null);
-  const [topOffset, setTopOffset] = useState(0);
-  useEffect(() => {
-    setTopOffset(stackRef.current.getBoundingClientRect().top);
-  }, []);
-
   return (
     <>
       <Stack
-        ref={stackRef}
         direction="row"
         alignItems="center"
         justifyContent="space-between"
         spacing={2}
         className={`pt-4 sticky bg-white z-10`}
-        sx={{ top: topOffset }}
+        sx={{ top: 48 }}
       >
         <Button
           startIcon={<RestartAlt />}

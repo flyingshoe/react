@@ -23,9 +23,11 @@ export default function SavedListTab({
   const [deleteId, setDeleteId] = useState("");
 
   return (
-    <>
+    <div className="pt-4">
       {savedList.length == 0 && (
-        <Typography variant="h5" className="text-center pt-5">No list saved yet</Typography>
+        <Typography variant="h5" className="text-center pt-5">
+          No list saved yet
+        </Typography>
       )}
       <List sx={{ pt: 0 }}>
         {savedList.map(({ id, name }) => (
@@ -88,6 +90,6 @@ export default function SavedListTab({
           <Button onClick={() => setDialogOpened(false)}>No</Button>
         </DialogActions>
       </Dialog>
-    </>
+    </div>
   );
 }

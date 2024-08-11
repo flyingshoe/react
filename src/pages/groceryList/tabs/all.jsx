@@ -17,7 +17,7 @@ import {
   Stack,
   TextField,
 } from "@mui/material";
-import { useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import { CloseOutlined } from "@mui/icons-material";
 export default function AllTab({
   groceryList,
@@ -68,21 +68,14 @@ export default function AllTab({
     );
   };
 
-  const stackRef = useRef(null);
-  const [topOffset, setTopOffset] = useState(0);
-  useEffect(() => {
-    setTopOffset(stackRef.current.getBoundingClientRect().top);
-  }, []);
-
   return (
     <>
       <Stack
-        ref={stackRef}
         direction="row"
         alignItems="center"
         justifyContent="space-between"
         className={`pt-4 sticky bg-white z-10`}
-        sx={{ top: topOffset }}
+        sx={{ top: 48 }}
       >
         <TextField
           inputRef={filterInputRef}
