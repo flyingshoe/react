@@ -34,6 +34,9 @@
     "vite": "^5.0.8",
     "vite-plugin-pwa": "^0.17.5"
   },
+  "optionalDependencies": {
+    "@rollup/rollup-linux-x64-gnu": "^4.9.6"
+  },
   "scripts": {
     "analyze": "source-map-explorer 'build/static/js/*.js'",
     "analyzecss": "source-map-explorer 'build/static/css/*.css'",
