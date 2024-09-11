@@ -42,7 +42,7 @@ export default forwardRef(function GroceryDrawer(
   useImperativeHandle(ref, () => ({
     showAddItems() {
       handleClickOpen();
-      setTabSel("notAdded");
+      setTabSel("all");
     },
   }));
 
