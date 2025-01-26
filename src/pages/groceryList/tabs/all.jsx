@@ -26,13 +26,7 @@ export default function AllTab({
 
   return (
     <>
-      <Stack
-        direction="row"
-        alignItems="center"
-        justifyContent="space-between"
-        className={`pt-4 sticky bg-white z-10`}
-        sx={{ top: 48 }}
-      >
+      <div className="flex flex-row items-center justify-between pt-4 sticky top-12 bg-white z-10">
         <TextField
           inputRef={filterInputRef}
           label="Item name"
@@ -61,7 +55,7 @@ export default function AllTab({
           }}
         />
         <IconButton
-          disableRippledisableRipple
+          disableRipple
           onClick={() => {
             handleAddAndClear(filterInputRef.current.value);
           }}
@@ -69,7 +63,7 @@ export default function AllTab({
         >
           <AddIcon />
         </IconButton>
-      </Stack>
+      </div>
       <List sx={{ pt: 0 }}>
         {groceryList
           .filter(({ title }) =>
