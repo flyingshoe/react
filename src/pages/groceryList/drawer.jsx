@@ -1,4 +1,3 @@
-import { Star } from "@mui/icons-material";
 import LocalGroceryStoreIcon from "@mui/icons-material/LocalGroceryStore";
 import {
   Container,
@@ -74,7 +73,7 @@ export default forwardRef(function GroceryDrawer(
         }}
       >
         {/* Add new Item */}
-        <Stack>
+        <Stack className="h-full">
           <Tabs
             value={tabSel}
             onChange={(_, val) => {
@@ -84,11 +83,11 @@ export default forwardRef(function GroceryDrawer(
             aria-label="grocery tabs"
             className="sticky top-0 bg-white z-20 px-4"
           >
-            <Tab label="Added" value="added" />
+            <Tab label="My Cart" value="added" />
+            <Tab label="Favourites" value="savedList" />
             <Tab label="All" value="all" />
-            <Tab label={<Star color="warning" />} value="savedList" />
           </Tabs>
-          <Container>
+          <Container className="h-full">
             {tabSel == "added" && (
               <AddedTab
                 groceryList={groceryList}

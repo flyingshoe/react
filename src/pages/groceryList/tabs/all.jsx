@@ -6,80 +6,37 @@ import ListItemText from "@mui/material/ListItemText";
 import AddIcon from "@mui/icons-material/Add";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { green, red } from "@mui/material/colors";
-import {
-  Button,
-  Checkbox,
-  Dialog,
-  DialogActions,
-  DialogContent,
-  DialogTitle,
-  IconButton,
-  Stack,
-  TextField,
-} from "@mui/material";
+import { Checkbox, IconButton, Stack, TextField } from "@mui/material";
 import { useRef, useState } from "react";
 import { CloseOutlined } from "@mui/icons-material";
+import { FixedSizeList } from "react-window";
+import AutoSizer from "react-virtualized-auto-sizer";
+
 export default function AllTab({
   groceryList,
   handleCheck,
   handleDelete,
   handleAdd,
 }) {
-  const [open, setOpen] = useState(false);
   const filterInputRef = useRef(null);
   const [filterVal, setFilterVal] = useState("");
 
-  const showAddNewItemDialog = () => {
-    setOpen(true);
+  const handleAddAndClear = (value) => {
+    handleAdd(value);
+    filterInputRef.current.value = "";
+    setFilterVal("");
   };
 
-  const hideAddNewItemDialog = () => {
-    setOpen(false);
-  };
-
-  const AddNewItemDialog = () => {
-    const newItemInputRef = useRef(null);
-    return (
-      <Dialog open={open} onClose={hideAddNewItemDialog} fullWidth>
-        <DialogTitle>Add New Item to list</DialogTitle>
-        <DialogContent>
-          <TextField
-            autoFocus
-            label="New Item Name"
-            fullWidth
-            variant="standard"
-            inputRef={newItemInputRef}
-          />
-        </DialogContent>
-        <DialogActions>
-          <Button onClick={hideAddNewItemDialog}>Cancel</Button>
-          <Button
-            onClick={() => {
-              handleAdd(newItemInputRef.current.value);
-              hideAddNewItemDialog();
-            }}
-            variant="contained"
-            color="success"
-          >
-            Add
-          </Button>
-        </DialogActions>
-      </Dialog>
-    );
-  };
+  const filteredGroceryList = groceryList.filter(({ title }) =>
+    title.toLowerCase().includes(filterVal.trim().toLowerCase())
+  );
 
   return (
-    <>
-      <Stack
-        direction="row"
-        alignItems="center"
-        justifyContent="space-between"
-        className={`pt-4 sticky bg-white z-10`}
-        sx={{ top: 48 }}
-      >
+    <div className="h-full flex flex-col">
+      <div className="flex flex-row items-center justify-between pt-4 sticky top-12 bg-white z-10">
         <TextField
           inputRef={filterInputRef}
-          label="Find Item"
+          label="Item name"
           onChange={(e) => setFilterVal(e.target.value)}
           InputProps={{
             autoComplete: "off",
@@ -100,47 +57,65 @@ export default function AllTab({
           sx={{ flexGrow: 1 }}
           onKeyDown={(e) => {
             if (e.key === "Enter") {
-              handleAdd(e.target.value);
-              e.target.value = "";
+              handleAddAndClear(e.target.value);
             }
           }}
         />
         <IconButton
           disableRipple
           onClick={() => {
-            showAddNewItemDialog();
+            handleAddAndClear(filterInputRef.current.value);
           }}
           sx={{ bgcolor: green[100], color: green[600], ml: 1 }}
         >
           <AddIcon />
         </IconButton>
-      </Stack>
-      <List sx={{ pt: 0 }}>
-        {groceryList
-          .filter(({ title }) =>
-            title.toLowerCase().includes(filterVal.trim().toLowerCase())
-          )
-          .sort((a, b) => a.title.localeCompare(b.title))
-          .map(({ id, title, added }) => (
-            <ListItem disableGutters key={id} className="p-0">
-              <ListItemButton className="p-0" onClick={() => handleCheck(id)}>
-                <ListItemAvatar>
-                  <Checkbox size="large" sx={{ pl: 0 }} checked={added} />
-                </ListItemAvatar>
-                <ListItemText primary={title} />
-                <DeleteIcon
-                  sx={{ color: red[600] }}
-                  fontSize="large"
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    handleDelete(id);
-                  }}
-                />
-              </ListItemButton>
-            </ListItem>
-          ))}
-      </List>
-      <AddNewItemDialog />
-    </>
+      </div>
+
+      <div className="flex-1">
+        <AutoSizer>
+          {({ height, width }) => (
+            <FixedSizeList
+              height={height} // Adjust height as needed
+              width={width}
+              itemCount={filteredGroceryList.length}
+              itemSize={53} // Adjust item size as needed
+            >
+              {({ index, style }) => {
+                const { id, title, added } = filteredGroceryList.sort((a, b) =>
+                  a.title.localeCompare(b.title)
+                )[index];
+                return (
+                  <ListItem
+                    style={style}
+                    disableGutters
+                    key={id}
+                    className="p-0"
+                  >
+                    <ListItemButton
+                      className="p-0"
+                      onClick={() => handleCheck(id)}
+                    >
+                      <ListItemAvatar>
+                        <Checkbox size="large" sx={{ pl: 0 }} checked={added} />
+                      </ListItemAvatar>
+                      <ListItemText primary={title} />
+                      <DeleteIcon
+                        sx={{ color: red[600] }}
+                        fontSize="large"
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          handleDelete(id);
+                        }}
+                      />
+                    </ListItemButton>
+                  </ListItem>
+                );
+              }}
+            </FixedSizeList>
+          )}
+        </AutoSizer>
+      </div>
+    </div>
   );
 }
