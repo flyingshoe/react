@@ -6,17 +6,7 @@ import ListItemText from "@mui/material/ListItemText";
 import AddIcon from "@mui/icons-material/Add";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { green, red } from "@mui/material/colors";
-import {
-  Button,
-  Checkbox,
-  Dialog,
-  DialogActions,
-  DialogContent,
-  DialogTitle,
-  IconButton,
-  Stack,
-  TextField,
-} from "@mui/material";
+import { Checkbox, IconButton, Stack, TextField } from "@mui/material";
 import { useRef, useState } from "react";
 import { CloseOutlined } from "@mui/icons-material";
 export default function AllTab({
@@ -25,47 +15,13 @@ export default function AllTab({
   handleDelete,
   handleAdd,
 }) {
-  const [open, setOpen] = useState(false);
   const filterInputRef = useRef(null);
   const [filterVal, setFilterVal] = useState("");
 
-  const showAddNewItemDialog = () => {
-    setOpen(true);
-  };
-
-  const hideAddNewItemDialog = () => {
-    setOpen(false);
-  };
-
-  const AddNewItemDialog = () => {
-    const newItemInputRef = useRef(null);
-    return (
-      <Dialog open={open} onClose={hideAddNewItemDialog} fullWidth>
-        <DialogTitle>Add New Item to list</DialogTitle>
-        <DialogContent>
-          <TextField
-            autoFocus
-            label="New Item Name"
-            fullWidth
-            variant="standard"
-            inputRef={newItemInputRef}
-          />
-        </DialogContent>
-        <DialogActions>
-          <Button onClick={hideAddNewItemDialog}>Cancel</Button>
-          <Button
-            onClick={() => {
-              handleAdd(newItemInputRef.current.value);
-              hideAddNewItemDialog();
-            }}
-            variant="contained"
-            color="success"
-          >
-            Add
-          </Button>
-        </DialogActions>
-      </Dialog>
-    );
+  const handleAddAndClear = (value) => {
+    handleAdd(value);
+    filterInputRef.current.value = "";
+    setFilterVal("");
   };
 
   return (
@@ -79,7 +35,7 @@ export default function AllTab({
       >
         <TextField
           inputRef={filterInputRef}
-          label="Find Item"
+          label="Item name"
           onChange={(e) => setFilterVal(e.target.value)}
           InputProps={{
             autoComplete: "off",
@@ -100,15 +56,14 @@ export default function AllTab({
           sx={{ flexGrow: 1 }}
           onKeyDown={(e) => {
             if (e.key === "Enter") {
-              handleAdd(e.target.value);
-              e.target.value = "";
+              handleAddAndClear(e.target.value);
             }
           }}
         />
         <IconButton
-          disableRipple
+          disableRippledisableRipple
           onClick={() => {
-            showAddNewItemDialog();
+            handleAddAndClear(filterInputRef.current.value);
           }}
           sx={{ bgcolor: green[100], color: green[600], ml: 1 }}
         >
@@ -140,7 +95,6 @@ export default function AllTab({
             </ListItem>
           ))}
       </List>
-      <AddNewItemDialog />
     </>
   );
 }

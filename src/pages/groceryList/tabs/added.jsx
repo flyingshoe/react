@@ -4,7 +4,7 @@ import ListItem from "@mui/material/ListItem";
 import ListItemAvatar from "@mui/material/ListItemAvatar";
 import ListItemButton from "@mui/material/ListItemButton";
 import ListItemText from "@mui/material/ListItemText";
-import { Button, Checkbox, Stack } from "@mui/material";
+import { Button, Checkbox, Stack, Snackbar, Alert } from "@mui/material";
 import { useRef, useState } from "react";
 import TextField from "@mui/material/TextField";
 import Dialog from "@mui/material/Dialog";
@@ -18,6 +18,7 @@ export default function AddedTab({
   addToSavedList,
 }) {
   const [open, setOpen] = useState(false);
+  const [snackbarOpened, setSnackbarOpened] = useState(false);
   const inputRef = useRef(null);
 
   const showSaveListDialog = () => {
@@ -31,7 +32,7 @@ export default function AddedTab({
   const SaveListDialog = () => {
     return (
       <Dialog open={open} onClose={hideSaveListDialog} fullWidth>
-        <DialogTitle>Adding to Saved List</DialogTitle>
+        <DialogTitle>Adding to Favourites</DialogTitle>
         <DialogContent>
           <TextField
             autoFocus
@@ -46,6 +47,7 @@ export default function AddedTab({
           <Button
             onClick={() => {
               addToSavedList(inputRef.current.value);
+              setSnackbarOpened(true);
               hideSaveListDialog();
             }}
             variant="contained"
@@ -106,6 +108,15 @@ export default function AddedTab({
       </List>
 
       <SaveListDialog />
+      <Snackbar
+        open={snackbarOpened}
+        autoHideDuration={5000}
+        onClose={() => setSnackbarOpened(false)}
+      >
+        <Alert severity="success" variant="filled" sx={{ width: "100%" }}>
+          Saved to favourites!
+        </Alert>
+      </Snackbar>
     </>
   );
 }

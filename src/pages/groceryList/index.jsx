@@ -100,11 +100,13 @@ export default function GroceryList() {
 
   const handleAdd = (title) => {
     if (title.trim() !== "") {
-      // Prepend to start
-      setGroceryList([
-        { id: Date.now().toString(), title, done: false, added: false },
-        ...groceryList,
-      ]);
+      // Prepend to start if it doesn't exist
+      if (groceryList.findIndex((i) => i.title === title) === -1) {
+        setGroceryList([
+          { id: Date.now().toString(), title, done: false, added: true },
+          ...groceryList,
+        ]);
+      }
     }
   };
 

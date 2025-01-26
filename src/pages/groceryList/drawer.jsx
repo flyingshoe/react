@@ -84,9 +84,9 @@ export default forwardRef(function GroceryDrawer(
             aria-label="grocery tabs"
             className="sticky top-0 bg-white z-20 px-4"
           >
-            <Tab label="Added" value="added" />
+            <Tab label="My Cart" value="added" />
+            <Tab label="Favourites" value="savedList" />
             <Tab label="All" value="all" />
-            <Tab label={<Star color="warning" />} value="savedList" />
           </Tabs>
           <Container>
             {tabSel == "added" && (
