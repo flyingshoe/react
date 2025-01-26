@@ -1,4 +1,3 @@
-import { Star } from "@mui/icons-material";
 import LocalGroceryStoreIcon from "@mui/icons-material/LocalGroceryStore";
 import {
   Container,
@@ -74,7 +73,7 @@ export default forwardRef(function GroceryDrawer(
         }}
       >
         {/* Add new Item */}
-        <Stack>
+        <Stack className="h-full">
           <Tabs
             value={tabSel}
             onChange={(_, val) => {
@@ -88,7 +87,7 @@ export default forwardRef(function GroceryDrawer(
             <Tab label="Favourites" value="savedList" />
             <Tab label="All" value="all" />
           </Tabs>
-          <Container>
+          <Container className="h-full">
             {tabSel == "added" && (
               <AddedTab
                 groceryList={groceryList}

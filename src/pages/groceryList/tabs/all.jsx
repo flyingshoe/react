@@ -9,6 +9,9 @@ import { green, red } from "@mui/material/colors";
 import { Checkbox, IconButton, Stack, TextField } from "@mui/material";
 import { useRef, useState } from "react";
 import { CloseOutlined } from "@mui/icons-material";
+import { FixedSizeList } from "react-window";
+import AutoSizer from "react-virtualized-auto-sizer";
+
 export default function AllTab({
   groceryList,
   handleCheck,
@@ -24,8 +27,12 @@ export default function AllTab({
     setFilterVal("");
   };
 
+  const filteredGroceryList = groceryList.filter(({ title }) =>
+    title.toLowerCase().includes(filterVal.trim().toLowerCase())
+  );
+
   return (
-    <>
+    <div className="h-full flex flex-col">
       <div className="flex flex-row items-center justify-between pt-4 sticky top-12 bg-white z-10">
         <TextField
           inputRef={filterInputRef}
@@ -64,31 +71,51 @@ export default function AllTab({
           <AddIcon />
         </IconButton>
       </div>
-      <List sx={{ pt: 0 }}>
-        {groceryList
-          .filter(({ title }) =>
-            title.toLowerCase().includes(filterVal.trim().toLowerCase())
-          )
-          .sort((a, b) => a.title.localeCompare(b.title))
-          .map(({ id, title, added }) => (
-            <ListItem disableGutters key={id} className="p-0">
-              <ListItemButton className="p-0" onClick={() => handleCheck(id)}>
-                <ListItemAvatar>
-                  <Checkbox size="large" sx={{ pl: 0 }} checked={added} />
-                </ListItemAvatar>
-                <ListItemText primary={title} />
-                <DeleteIcon
-                  sx={{ color: red[600] }}
-                  fontSize="large"
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    handleDelete(id);
-                  }}
-                />
-              </ListItemButton>
-            </ListItem>
-          ))}
-      </List>
-    </>
+
+      <div className="flex-1">
+        <AutoSizer>
+          {({ height, width }) => (
+            <FixedSizeList
+              height={height} // Adjust height as needed
+              width={width}
+              itemCount={filteredGroceryList.length}
+              itemSize={53} // Adjust item size as needed
+            >
+              {({ index, style }) => {
+                const { id, title, added } = filteredGroceryList.sort((a, b) =>
+                  a.title.localeCompare(b.title)
+                )[index];
+                return (
+                  <ListItem
+                    style={style}
+                    disableGutters
+                    key={id}
+                    className="p-0"
+                  >
+                    <ListItemButton
+                      className="p-0"
+                      onClick={() => handleCheck(id)}
+                    >
+                      <ListItemAvatar>
+                        <Checkbox size="large" sx={{ pl: 0 }} checked={added} />
+                      </ListItemAvatar>
+                      <ListItemText primary={title} />
+                      <DeleteIcon
+                        sx={{ color: red[600] }}
+                        fontSize="large"
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          handleDelete(id);
+                        }}
+                      />
+                    </ListItemButton>
+                  </ListItem>
+                );
+              }}
+            </FixedSizeList>
+          )}
+        </AutoSizer>
+      </div>
+    </div>
   );
 }
