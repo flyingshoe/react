@@ -6,7 +6,7 @@ import CheckSum from "src/pages/nric/checksum";
 export default function Nric() {
   return (
     <div className="flex justify-center items-center h-full bg-gray-700">
-      <Card title="NRIC" className="p-8 max-w-[400px]">
+      <Card title="NRIC" className="p-8 max-w-[350px]">
         <div className="flex flex-col gap-8">
           <Generator />
           <Validator />
