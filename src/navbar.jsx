@@ -69,6 +69,10 @@ const navItems = [
     title: "React Flow",
     url: "/ReactFlow",
   },
+    {
+    title: "URL Opener",
+    url: "/urlOpener",
+  },
 ];
 
 export default function Navbar() {

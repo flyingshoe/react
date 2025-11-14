@@ -1,5 +1,5 @@
 import { useState, lazy, Suspense, useEffect } from "react";
-import { HashRouter as Router, Route, Switch, useLocation } from "react-router-dom";
+import { BrowserRouter as Router, Route, Switch, useLocation } from "react-router-dom";
 import Nav from "./navbar";
 import LinearProgress from "@mui/material/LinearProgress";
 
@@ -16,6 +16,7 @@ const NRIC = lazy(() => import("src/pages/nric/page"));
 const StockApp = lazy(() => import("src/pages/stockApp"));
 const DailyReport = lazy(() => import("src/pages/dailyReport"));
 const ReactFlow = lazy(() => import("src/pages/reactFlow"));
+const UrlOpener = lazy(() => import("src/pages/urlOpener"));
 
 const RouterContainer = ({ children }) => {
   const { pathname } = useLocation();
@@ -30,8 +31,11 @@ const RouterContainer = ({ children }) => {
 export default function Routes() {
   const [homePg, setHomePg] = useState(false);
   const [showNav, setShowNav] = useState(true);
+  const base = typeof import.meta !== 'undefined' && import.meta.env && import.meta.env.BASE_URL
+    ? import.meta.env.BASE_URL
+    : '/';
   return (
-    <Router>
+    <Router basename={base}>
       <div className="flex flex-col min-h-screen h-full">
         {showNav && <Nav homePg={homePg} setHomePg={setHomePg} />}
         <Suspense fallback={<LinearProgress />}>
@@ -52,6 +56,7 @@ export default function Routes() {
               <Route path="/StockApp" component={StockApp} />
               <Route path="/DailyReport" component={DailyReport} />
               <Route path="/ReactFlow" component={ReactFlow} />
+              <Route path="/urlOpener" component={UrlOpener} />
             </Switch>
           </RouterContainer>
         </Suspense>
