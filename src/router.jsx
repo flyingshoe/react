@@ -1,5 +1,5 @@
 import { useState, lazy, Suspense, useEffect } from "react";
-import { BrowserRouter as Router, Route, Switch, useLocation } from "react-router-dom";
+import { HashRouter as Router, Route, Switch, useLocation } from "react-router-dom";
 import Nav from "./navbar";
 import LinearProgress from "@mui/material/LinearProgress";
 
@@ -31,11 +31,9 @@ const RouterContainer = ({ children }) => {
 export default function Routes() {
   const [homePg, setHomePg] = useState(false);
   const [showNav, setShowNav] = useState(true);
-  const base = typeof import.meta !== 'undefined' && import.meta.env && import.meta.env.BASE_URL
-    ? import.meta.env.BASE_URL
-    : '/';
+
   return (
-    <Router basename={base}>
+    <Router>
       <div className="flex flex-col min-h-screen h-full">
         {showNav && <Nav homePg={homePg} setHomePg={setHomePg} />}
         <Suspense fallback={<LinearProgress />}>
