@@ -15,21 +15,16 @@ export default function UrlOpener() {
 
   // Load links from URL on mount
   useEffect(() => {
-    const parameters = window.location.href.split(/\?(.+)/)[1];
-    if (parameters) {
-      const decoded = parameters
-        .split(";")
-        .map((x) => decodeURIComponent(x))
-        .join("\n");
-      setLinks(decoded + "\n");
+    const url = new URL(window.location.href);
+    const parameters = url.searchParams.getAll("urlOpener");
+
+    if (parameters.length > 0) {
+      setLinks(parameters.join("\n"));
 
       // Remove parameters from URL
-      const baseUrl = new URL(window.location.href);
-      window.history.replaceState(
-        null,
-        "",
-        `${baseUrl.origin}${baseUrl.pathname}`
-      );
+      url.search = "";
+
+      window.history.replaceState(null, "", url);
     }
   }, []);
 
@@ -38,20 +33,15 @@ export default function UrlOpener() {
   }, [links]);
 
   const saveLinks = () => {
-    const baseUrl = new URL(window.location.href);
-    const lines = links
-      .split("\n")
-      .map((line) => line.trim())
-      .filter((line) => line);
+    const newUrl = new URL(window.location.href);
 
-    if (lines.length === 0) return;
+    links.split("\n").forEach((line) => {
+      const trimmedLine = line.trim();
+      if (trimmedLine != "") {
+        newUrl.searchParams.append("urlOpener", trimmedLine);
+      }
+    });
 
-    const queryString = lines
-      .map((line) => encodeURIComponent(line))
-      .map((line, i) => (i === 0 ? `?${line}` : `;${line}`))
-      .join("");
-
-    const newUrl = `${baseUrl.origin}${baseUrl.pathname}${queryString}`;
     setShareUrl(newUrl);
   };
 
@@ -101,7 +91,7 @@ export default function UrlOpener() {
             disabled
             className="w-full"
             sx={{
-              '& .MuiOutlinedInput-root': {
+              "& .MuiOutlinedInput-root": {
                 borderTopRightRadius: 0,
                 borderBottomRightRadius: 0,
               },
