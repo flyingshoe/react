@@ -25,7 +25,7 @@ export default forwardRef(function GroceryDrawer(
     applySavedList,
     deleteSavedList,
   },
-  ref
+  ref,
 ) {
   const inputRef = useRef();
   const [open, setOpen] = useState(false);
@@ -84,8 +84,8 @@ export default forwardRef(function GroceryDrawer(
             className="sticky top-0 bg-white z-20 px-4"
           >
             <Tab label="My Cart" value="added" />
-            <Tab label="Favourites" value="savedList" />
             <Tab label="All" value="all" />
+            <Tab label="Favourites" value="savedList" />
           </Tabs>
           <Container className="h-full">
             {tabSel == "added" && (
