@@ -37,7 +37,11 @@ export default defineConfig({
           format: "var",
         },
       },
-      shared: ["react"],
+      shared: {
+        react: {
+          singleton: true,
+        },
+      },
     }),
   ],
   build: {
