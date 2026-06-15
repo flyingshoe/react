@@ -57,10 +57,10 @@ const navItems = [
     title: "NRIC",
     url: "/NRIC",
   },
-  {
-    title: "Kanban",
-    url: "/DailyReport",
-  },
+  // {
+  //   title: "Kanban",
+  //   url: "/DailyReport",
+  // },
   {
     title: "Stock App",
     url: "/StockApp",
